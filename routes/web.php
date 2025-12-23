@@ -13,6 +13,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// auth middleware par defaut pour l'authentification
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -21,5 +22,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
- Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
- Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
+// Admin
+
+ Route::middleware(['auth', 'role:admin'])->group(function(){
+    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+ });
+
+// Agent
+ Route::middleware(['auth', 'role:agent'])->group(function(){
+    Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard'); 
+ });
+
