@@ -71,7 +71,10 @@
                       @csrf
                       <div class="mb-3">
                         <label for="login" class="form-label">Email/Name/Phone</label>
-                        <input type="text" class="form-control" id="login" name="login" placeholder="Email">
+                        <input type="text" class="form-control  @error('login') is-invalid @enderror" id="login" name="login" placeholder="Email">
+                         @error('login')
+                           <span class="text-danger">{{$message}}</span>
+												 @enderror
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

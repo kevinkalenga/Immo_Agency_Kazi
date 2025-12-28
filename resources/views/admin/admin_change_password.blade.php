@@ -59,7 +59,7 @@
 
 								<h6 class="card-title">Admin Change Pasword</h6>
 
-								<form class="forms-sample" action="#" method="POST" >
+								<form class="forms-sample" action="{{route('admin.password.update')}}" method="POST" >
                   @csrf
 									<div class="mb-3">
 										<label for="old_password" class="form-label">Old Password</label>
