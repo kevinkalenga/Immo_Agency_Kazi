@@ -59,7 +59,8 @@
 
 								<h6 class="card-title">Update Admin Profile</h6>
 
-								<form class="forms-sample">
+								<form class="forms-sample" action="{{route('admin.profile.store')}}" method="POST" enctype="multipart/form-data">
+                  @csrf
 									<div class="mb-3">
 										<label for="exampleInputUsername1" class="form-label">Name</label>
 										<input name="name" type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" value="{{$profileData->name}}">
@@ -88,7 +89,7 @@
 									</div>
                    <div class="mb-3">
 										<label for="exampleInputEmail1" class="form-label"></label>
-										<img id="showImage" src="{{(!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
+										<img id="showImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
 									</div>
 									
 									<button type="submit" class="btn btn-primary me-2">Save Changes</button>
