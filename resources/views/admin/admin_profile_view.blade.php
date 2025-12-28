@@ -1,7 +1,7 @@
 @extends('admin.admin_dashboard')
 
 @section('admin') 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<div class="page-content">
 
        
@@ -13,7 +13,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-2">
                  
                   <div>
-                    <img class="wd-100 rounded-circle" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="admin">
+                    <img class="wd-80 rounded-circle p-1 bg-primary" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="admin">
                     <span class="h4 ms-3">{{$profileData->username}}</span>
                     
                   </div>
@@ -57,29 +57,42 @@
                   <div class="card">
               <div class="card-body">
 
-								<h6 class="card-title">Basic Form</h6>
+								<h6 class="card-title">Update Admin Profile</h6>
 
 								<form class="forms-sample">
 									<div class="mb-3">
+										<label for="exampleInputUsername1" class="form-label">Name</label>
+										<input name="name" type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" value="{{$profileData->name}}">
+									</div>
+									<div class="mb-3">
 										<label for="exampleInputUsername1" class="form-label">Username</label>
-										<input type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Username">
+										<input name="username" type="text" class="form-control" id="exampleInputUsername1" autocomplete="off" value="{{$profileData->username}}">
 									</div>
 									<div class="mb-3">
 										<label for="exampleInputEmail1" class="form-label">Email address</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+										<input name="email" type="email" class="form-control" id="exampleInputEmail1" value="{{$profileData->email}}">
+									</div>
+									
+									<div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label">Phone</label>
+										<input name="phone" type="text" class="form-control" id="exampleInputEmail1" value="{{$profileData->phone}}">
 									</div>
 									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Password</label>
-										<input type="password" class="form-control" id="exampleInputPassword1" autocomplete="off" placeholder="Password">
+										<label for="exampleInputEmail1" class="form-label">Address</label>
+										<input name="address" type="text" class="form-control" id="exampleInputEmail1" value="{{$profileData->address}}">
 									</div>
-									<div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-										<label class="form-check-label" for="exampleCheck1">
-											Remember me
-										</label>
+								  
+                   <div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label">Photo</label>
+										<input type="file" name="photo" class="form-control" value="{{$profileData->photo}}" id="image" />
 									</div>
-									<button type="submit" class="btn btn-primary me-2">Submit</button>
-									<button class="btn btn-secondary">Cancel</button>
+                   <div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label"></label>
+										<img id="showImage" src="{{(!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
+									</div>
+									
+									<button type="submit" class="btn btn-primary me-2">Save Changes</button>
+									
 								</form>
 
               </div>
@@ -95,6 +108,17 @@
 
 			</div>
 
-
+    
+    <script type="text/javascript">
+               $(document).ready(function(){
+				$('#image').change(function(e){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$("#showImage").attr('src', e.target.result)
+					}
+					reader.readAsDataURL(e.target.files['0'])
+				})
+			   })
+		</script>
 
 @endsection
