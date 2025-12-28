@@ -181,18 +181,26 @@
 								</div>
 							</div>
 						</li>
-						<li class="nav-item dropdown">
+						
+            			@php 
+                       $id = Auth::user()->id;
+                       $profileData = App\Models\User::find($id);
+
+					        @endphp
+            
+            
+            <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img id="showImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="50">
+								<img id="showImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="40">
 							</a>
 							<div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
 								<div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
 									<div class="mb-3">
-								<!-- <img id="showImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80"> -->
+								    <img id="showImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin_images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
 									</div>
 									<div class="text-center">
-										<p class="tx-16 fw-bolder">Amiah Burton</p>
-										<p class="tx-12 text-muted">amiahburton@gmail.com</p>
+										<p class="tx-16 fw-bolder">{{$profileData->name}}</p>
+										<p class="tx-12 text-muted">{{$profileData->email}}</p>
 									</div>
 								</div>
                 <ul class="list-unstyled p-1">
