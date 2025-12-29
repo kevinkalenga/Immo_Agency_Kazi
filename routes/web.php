@@ -4,10 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// User Frontend All Route 
+Route::get('/', [UserController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
