@@ -42,6 +42,26 @@
                                     <div class="inner-box">
                                         <h4>Sign in</h4>
                                         <form action="{{ route('login') }}" method="post" class="default-form" novalidate>
+                                            
+                                        @if (session('status'))
+                                           <div class="alert alert-success">
+                                               {{ session('status') }}
+                                           </div>
+                                       @endif
+
+                                       @if ($errors->any())
+                                           <div class="alert alert-danger">
+                                               <ul class="mb-0">
+                                                   @foreach ($errors->all() as $error)
+                                                       <li>{{ $error }}</li>
+                                                   @endforeach
+                                               </ul>
+                                           </div>
+                                       @endif
+                                        
+                                        
+                                           
+                                        
                                             @csrf
                                             <div class="form-group">
                                                 <label>Name/Email/Phone</label>
@@ -65,6 +85,25 @@
                                         <h4>Sign in</h4>
                                         <form action="{{ route('register') }}" method="post" class="default-form" novalidate>
                                             @csrf
+                                            
+                                            
+                                        @if (session('status'))
+                                           <div class="alert alert-success">
+                                               {{ session('status') }}
+                                           </div>
+                                       @endif
+
+                                       @if ($errors->any())
+                                           <div class="alert alert-danger">
+                                               <ul class="mb-0">
+                                                   @foreach ($errors->all() as $error)
+                                                       <li>{{ $error }}</li>
+                                                   @endforeach
+                                               </ul>
+                                           </div>
+                                       @endif
+                                            
+                                            
                                             <div class="form-group">
                                                 <label>User name</label>
                                                 <input type="text" name="name" id="name" required="">
