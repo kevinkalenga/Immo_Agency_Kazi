@@ -88,6 +88,12 @@ body {
   }
 }
 
+.space-elemtn {
+   display: flex;
+   align-items: center;
+   gap: 15px; /* espace entre Dashboard et Logout */
+}
+
 .large-container{
   max-width: 1550px;
   padding: 0px 15px;

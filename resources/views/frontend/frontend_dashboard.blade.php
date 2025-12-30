@@ -7,7 +7,8 @@
 
 <title>Easy - Real Estate</title>
 
-<!-- Fav Icon -->
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/871e76e3a2.js" crossorigin="anonymous"></script>
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
 <!-- Google Fonts -->

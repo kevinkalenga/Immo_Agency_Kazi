@@ -17,9 +17,25 @@
                             <li><a href="index.html"><i class="fab fa-google-plus-g"></i></a></li>
                             <li><a href="index.html"><i class="fab fa-vimeo-v"></i></a></li>
                         </ul>
-                        <div class="sign-box">
-                            <a href="signin.html"><i class="fas fa-user"></i>Sign In</a>
-                        </div>
+                        
+                        
+                        
+                         @auth 
+                           
+                            <div class="sign-box space-elemtn">
+                                <a href="{{route('dashboard')}}"><i class="fa fa-user"></i>Dashboard</a>
+                                <a href="{{route('user.logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+                            </div>
+                                
+                        @else 
+                            <div class="sign-box">
+                                <a href="{{route('login')}}"><i class='fa fa-user'></i>Sign In</a>
+                                
+                            </div>
+                            <!-- bx bxs-user-pin -->
+
+                        @endauth 
+                        
                     </div>
                 </div>
             </div>
@@ -28,7 +44,7 @@
 <div class="outer-box">
 <div class="main-box">
 <div class="logo-box">
-    <figure class="logo"><a href="index.html"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a></figure>
+    <figure class="logo"><a href="{{route('home')}}"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a></figure>
 </div>
 <div class="menu-area clearfix">
     <!--Mobile Navigation Toggler-->
@@ -40,7 +56,7 @@
     <nav class="main-menu navbar-expand-md navbar-light">
         <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
             <ul class="navigation clearfix">
-                <li class="current dropdown"><a href="index.html"><span>Home</span></a>
+                <li class="current dropdown"><a href="{{route('home')}}"><span>Home</span></a>
                     <ul>
                         <li><a href="index.html">Main Home</a></li>
                         <li><a href="index-2.html">Home Modern</a></li>
