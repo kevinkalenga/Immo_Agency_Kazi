@@ -49,7 +49,7 @@
                     <div class="post-inner">
                         <div class="post">
                             <figure class="post-thumb"><a href="blog-details.html">
-       <img id="showImage" src="{{(!empty($userData->photo)) ? url('uploads/user_images/'.$userData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80"></a></figure>
+       <img id="sidebarImage" src="{{(!empty($userData->photo)) ? url('uploads/user_images/'.$userData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80"></a></figure>
         <h5><a href="blog-details.html">{{$userData->name}} </a></h5>
          <p>{{$userData->email}} </p>
                         </div> 
@@ -79,10 +79,11 @@
                                       
                                       
           
- <form action="signin.html" method="post" class="default-form">
+ <form action="{{route('user.profile.store')}}" method="post" class="default-form" enctype="multipart/form-data">
+      @csrf
         <div class="form-group">
             <label >Name</label>
-            <input name="email" type="text" class="form-control" value="{{$userData->name}}">
+            <input name="name" type="text" class="form-control" value="{{$userData->name}}">
         </div>
         <div class="form-group">
             <label>Username</label>
@@ -141,7 +142,7 @@
 
         <!-- subscribe-section -->
         <section class="subscribe-section bg-color-3">
-            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+            <div class="pattern-layer" style="background-image: url({{asset('frontend/assets/images/shape/shape-2.png')}});"></div>
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="col-lg-6 col-md-6 col-sm-12 text-column">
@@ -163,18 +164,19 @@
                 </div>
             </div>
         </section>
-
+            <!-- subscribe-section end -->
     
         <script type="text/javascript">
                $(document).ready(function(){
 				$('#image').change(function(e){
 					var reader = new FileReader();
 					reader.onload = function(e){
-						$("#showImage").attr('src', e.target.result)
+						$("#showImage").attr('src', e.target.result);
+                        $('#sidebarImage').attr('src', e.target.result);
 					}
 					reader.readAsDataURL(e.target.files['0'])
 				})
 			   })
 		</script>
-        <!-- subscribe-section end -->
+     
 @endsection
