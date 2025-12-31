@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\PropertyTypeController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -38,10 +39,20 @@ require __DIR__.'/auth.php';
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
      Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
  });
+// Admin(auth to verify if is logged in)
+
+ Route::middleware(['auth', 'role:admin'])->group(function(){
+    
+   // Property Type All Route
+    Route::controller(PropertyTypeController::class)->group(function(){
+         Route::get('/all/type', 'AllType')->name('all.type');
+    });
+ });
 
 // Agent
  Route::middleware(['auth', 'role:agent'])->group(function(){
     Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard'); 
+
  });
 
 
