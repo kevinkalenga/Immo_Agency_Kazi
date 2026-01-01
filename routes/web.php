@@ -50,6 +50,7 @@ require __DIR__.'/auth.php';
          Route::post('/store/type', 'StoreType')->name('store.type');
          Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
          Route::post('/update/type/{id}', 'UpdateType')->name('update.type');
+         Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type');
     });
  });
 
