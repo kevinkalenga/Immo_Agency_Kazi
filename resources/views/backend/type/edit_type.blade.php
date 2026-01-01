@@ -13,21 +13,21 @@
                   <div class="card">
               <div class="card-body">
 
-								<h6 class="card-title">Add Property Type</h6>
+								<h6 class="card-title">Edit Property Type</h6>
 
-								<form class="forms-sample" action="{{route('store.type')}}" method="POST" >
-                                    @csrf 
-									        
+								<form class="forms-sample" action="{{route('update.type', $types->id)}}" method="POST" >
+                                    @csrf  
+									
 									<div class="mb-3">
 										<label class="form-label">Type Name</label>
-										<input name="type_name" type="text" class="form-control @error('type_name') is-invalid @enderror" />
+										<input name="type_name" type="text" class="form-control @error('type_name') is-invalid @enderror" value="{{$types->type_name}}" />
                      	 @error('type_name') 
                           <span class="text-danger">{{$message}}</span>
 											 @enderror
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Type Icon</label>
-										<input name="type_icon" type="text" class="form-control @error('type_icon') is-invalid @enderror" />
+										<input name="type_icon" type="text" class="form-control @error('type_icon') is-invalid @enderror"  value="{{$types->type_icon}}" />
                      	 @error('type_icon') 
                           <span class="text-danger">{{$message}}</span>
 											 @enderror
