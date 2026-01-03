@@ -13,14 +13,14 @@
                   <div class="card">
               <div class="card-body">
 
-								<h6 class="card-title">Add Amenities</h6>
+								<h6 class="card-title">Edit Amenities</h6>
 
-								<form id="myForm" class="forms-sample" action="{{route('store.amenitie')}}" method="POST" >
+								<form id="myForm" class="forms-sample" action="{{route('update.amenitie', $amenities->id)}}" method="POST" >
                                     @csrf 
 									        
 									<div class="mb-3">
 										<label class="form-label">Amenities Name</label>
-										<input name="amenities_name" type="text" class="form-control" />
+										<input name="amenities_name" type="text" class="form-control" value="{{$amenities->amenities_name}}" />
             
 									</div>
 								
@@ -47,8 +47,7 @@
 
 			</div>
 
-    
-    <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function () {
     $('#myForm').validate({
         rules: {
