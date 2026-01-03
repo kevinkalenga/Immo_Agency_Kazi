@@ -1,8 +1,8 @@
 @extends('admin.admin_dashboard')
 
 @section('admin') 
-
-	<div class="page-content">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<div class="page-content">
 
        
         <div class="row profile-body">
@@ -15,15 +15,13 @@
 
 								<h6 class="card-title">Add Amenities</h6>
 
-								<form class="forms-sample" action="{{route('store.type')}}" method="POST" >
+								<form id="myForm" class="forms-sample" action="{{route('store.type')}}" method="POST" >
                                     @csrf 
 									        
 									<div class="mb-3">
 										<label class="form-label">Amenities Name</label>
-										<input name="amenities_name" type="text" class="form-control @error('amenities_name') is-invalid @enderror" />
-                     	                    @error('amenities_name') 
-                                              <span class="text-danger">{{$message}}</span>
-											 @enderror
+										<input name="amenities_name" type="text" class="form-control" />
+            
 									</div>
 								
 						
@@ -50,6 +48,35 @@
 			</div>
 
     
+    <script type="text/javascript">
+$(document).ready(function () {
+    $('#myForm').validate({
+        rules: {
+            amenities_name: {
+                required: true,
+            },
+            
+        },
+        messages: {
+            amenities_name: {
+                required: 'Please Enter Amenities Name',
+            },
+            
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.after(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+    });
+});
+</script>
     
 		
 
