@@ -119,6 +119,6 @@
  }
  @endif 
 </script>
-
+@yield('scripts')
 </body><!-- End of .page_wrapper -->
 </html>

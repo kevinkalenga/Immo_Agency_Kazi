@@ -49,7 +49,7 @@
                   <a href="{{route('all.amenitie')}}" class="nav-link">All Amenities</a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/email/read.html" class="nav-link">Add Amenity</a>
+                  <a href="{{route('add.amenitie')}}" class="nav-link">Add Amenity</a>
                 </li>
                 
               </ul>

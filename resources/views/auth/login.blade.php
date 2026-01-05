@@ -13,7 +13,7 @@
                 <div class="content-box clearfix">
                     <h1>Sign In</h1>
                     <ul class="bread-crumb clearfix">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{route('home')}}">Home</a></li>
                         <li>Sign In</li>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
                                 <div class="tab active-tab" id="tab-1">
                                     <div class="inner-box">
                                         <h4>Sign in</h4>
-                                        <form action="{{ route('login') }}" method="post" class="default-form" novalidate>
+                                        <form action="{{route('login')}}" method="post" class="default-form" novalidate>
                                             
                                         @if (session('status'))
                                            <div class="alert alert-success">
@@ -76,14 +76,19 @@
                                             </div>
                                         </form>
                                         <div class="othre-text">
-                                            <p>Have not any account? <a href="signup.html">Register Now</a></p>
+                                            <p>
+                                                Have not any account?
+                                                <a href="{{route('register')}}" class="go-register">Register Now</a>
+                                            </p>
+
+                                            <!-- <p>Have not any account? <a href="{{route('register')}}">Register Now</a></p> -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab" id="tab-2">
                                     <div class="inner-box">
-                                        <h4>Sign in</h4>
-                                        <form action="{{ route('register') }}" method="post" class="default-form" novalidate>
+                                        <h4>Sign Up</h4>
+                                        <form action="{{route('register')}}" method="post" class="default-form" novalidate>
                                             @csrf
                                             
                                             
@@ -125,7 +130,12 @@
                                             </div>
                                         </form>
                                         <div class="othre-text">
-                                            <p>Have not any account? <a href="signup.html">Register Now</a></p>
+                                            <p>
+                                                Have you already an account?
+                                                <a href="{{route('login')}}" class="go-login">Sign In</a>
+                                            </p>
+
+                                            <!-- <p>Have you already an account? <a href="{{route('login')}}">Sign In</a></p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -163,4 +173,41 @@
             </div>
         </section>
         <!-- subscribe-section end -->
+@endsection
+
+<!-- Add script to redirect to Sign Up and Sign In -->
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    function activateTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active-btn');
+        });
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active-tab');
+        });
+
+        document.querySelector('.tab-btn[data-tab="' + tabId + '"]')
+            .classList.add('active-btn');
+
+        document.querySelector(tabId).classList.add('active-tab');
+    }
+
+    document.querySelectorAll('.go-register').forEach(el => {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            activateTab('#tab-2');
+        });
+    });
+
+    document.querySelectorAll('.go-login').forEach(el => {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            activateTab('#tab-1');
+        });
+    });
+
+});
+</script>
 @endsection
