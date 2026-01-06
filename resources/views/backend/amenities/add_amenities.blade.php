@@ -10,8 +10,8 @@
           <!-- middle wrapper start -->
           <div class="col-md-8 col-xl-8 middle-wrapper">
             <div class="row">
-                  <div class="card">
-              <div class="card-body">
+             <div class="card">
+               <div class="card-body">
 
 								<h6 class="card-title">Add Amenities</h6>
 
@@ -34,7 +34,7 @@
 									
 								</form>
 
-              </div>
+               </div>
             </div>
             
             </div>

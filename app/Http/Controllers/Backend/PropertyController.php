@@ -16,4 +16,8 @@ class PropertyController extends Controller
       $property = Property::latest()->get();
       return view('backend.property.all_property', compact('property'));
     }
+    public function AddPropertie()
+    {
+      return view('backend.property.add_property');
+    }
 }

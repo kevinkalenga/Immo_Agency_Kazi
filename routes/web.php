@@ -65,6 +65,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
    // Property All Route
     Route::controller(PropertyController::class)->group(function(){
          Route::get('/all/propertie', 'AllPropertie')->name('all.propertie');
+         Route::get('/add/propertie', 'AddPropertie')->name('add.propertie');
        
     });
  });
