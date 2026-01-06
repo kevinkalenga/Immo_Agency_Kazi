@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\PropertyController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -41,7 +42,7 @@ require __DIR__.'/auth.php';
  });
 // Admin(auth to verify if is logged in)
 
- Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::middleware(['auth', 'role:admin'])->group(function(){
     
    // Property Type All Route
     Route::controller(PropertyTypeController::class)->group(function(){
@@ -60,6 +61,11 @@ require __DIR__.'/auth.php';
          Route::get('/edit/amenitie/{id}', 'EditAmenitie')->name('edit.amenitie');
          Route::post('/update/amenitie/{id}', 'UpdateAmenitie')->name('update.amenitie');
          Route::get('/delete/amenitie/{id}', 'DeleteAmenitie')->name('delete.amenitie');
+    });
+   // Property All Route
+    Route::controller(PropertyController::class)->group(function(){
+         Route::get('/all/propertie', 'AllPropertie')->name('all.propertie');
+       
     });
  });
 
