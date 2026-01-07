@@ -147,5 +147,11 @@ License: For each use you must have a valid license purchased only from above li
 	<script src="{{asset('backend/assets/vendors/typeahead.js/typeahead.bundle.min.js')}}"></script>
 	<script src="{{asset('backend/assets/vendors/jquery-tags-input/jquery.tagsinput.min.js')}}"></script>
 
+
+	<!-- tinymce -->
+       <script src="{{ asset('backend/assets/vendors/tinymce/tinymce.min.js') }}"></script>
+       <script src="{{ asset('backend/assets/js/tinymce.js') }}"></script>
+    <!-- tinymce -->
+
 </body>
 </html>    
