@@ -9,6 +9,7 @@ use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
+use App\Models\MultiImage;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -32,13 +33,17 @@ class PropertyController extends Controller
 
     public function StorePropertie(Request $request)
     {
-        // ✅ Validate request inputs
+        // Validate request inputs
         $request->validate([
             'property_thambnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+              // Multi images validation
+            'multi_img' => 'nullable|array',
+            'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $amen = $request->amenities_id;
-        $amenities = implode(",", $amen);
+        $amenities = $request->amenities_id 
+            ? implode(',', $request->amenities_id) 
+            : null;
         // dd($amenities);
         
         $pcode = IdGenerator::generate([
@@ -47,71 +52,92 @@ class PropertyController extends Controller
            'length' => 5,
            'prefix' => 'PC-'
         ]);
-        
-        
-        
-        try {
-            if ($request->hasFile('property_thambnail')) {
-                $image = $request->file('property_thambnail');
-                $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
 
-                $uploadPath = public_path('uploads/property/thambnail');
-                if (!file_exists($uploadPath)) {
-                    mkdir($uploadPath, 0755, true);
-                }
 
-                // Use the new Intervention Image v3 syntax
-                $manager = new ImageManager(new Driver());
-                $manager->read($image)
-                    ->resize(370, 250)
-                    ->save($uploadPath . '/' . $name_gen);
 
-                $save_url = 'uploads/property/thambnail' . $name_gen;
-            } else {
-                return back()->withErrors(['property_thambnail' => 'No property thambnail uploaded.']);
+          try {
+
+               // Upload thumbnail
+               $image = $request->file('property_thambnail');
+               $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+
+               $uploadPath = public_path('uploads/property/thambnail/');
+               if (!file_exists($uploadPath)) {
+                   mkdir($uploadPath, 0755, true);
+               }
+
+               $manager = new ImageManager(new Driver());
+               $manager->read($image)
+                   ->resize(370, 250)
+                   ->save($uploadPath . $name_gen);
+
+               $save_url = 'uploads/property/thambnail/' . $name_gen;
+
+               // Save property
+               $property = Property::create([
+                   'ptype_id' => $request->ptype_id,
+                   'amenities_id' => $amenities,
+                   'property_name' => $request->property_name,
+                   'property_slug' => strtolower(str_replace(' ', '-', $request->property_name)),
+                   'property_code' => $pcode,
+                   'property_status' => $request->property_status,
+                   'lowest_price' => $request->lowest_price,
+                   'max_price' => $request->max_price,
+                   'short_descp' => $request->short_descp,
+                   'long_descp' => $request->long_descp,
+                   'bedrooms' => $request->bedrooms,
+                   'bathrooms' => $request->bathrooms,
+                   'garage' => $request->garage,
+                   'garage_size' => $request->garage_size,
+                   'property_size' => $request->property_size,
+                   'property_video' => $request->property_video,
+                   'address' => $request->address,
+                   'city' => $request->city,
+                   'state' => $request->state,
+                   'postal_code' => $request->postal_code,
+                   'neighborhood' => $request->neighborhood,
+                   'latitude' => $request->latitude,
+                   'longitude' => $request->longitude,
+                   'featured' => $request->featured,
+                   'hot' => $request->hot,
+                   'agent_id' => $request->agent_id,
+                   'status' => 1,
+                   'property_thambnail' => $save_url,
+               ]);
+
+               // Multi images
+               if ($request->hasFile('multi_img')) {
+                   foreach ($request->file('multi_img') as $img) {
+
+                       $make_name = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+                       $uploadPath = public_path('uploads/property/multi_image/');
+                       if (!file_exists($uploadPath)) {
+                           mkdir($uploadPath, 0755, true);
+                       }
+
+                       $manager->read($img)
+                           ->resize(770, 520)
+                           ->save($uploadPath . $make_name);
+
+                       MultiImage::create([
+                           'property_id' => $property->id,
+                           'photo_name' => 'uploads/property/multi_image/' . $make_name,
+                       ]);
+                   }
+               }
+
+                return redirect()->route('all.property')->with([
+                    'message' => 'Property Inserted Successfully!',
+                    'alert-type' => 'success',
+                ]);
+
+            } catch (\Exception $e) {
+                return back()->withErrors([
+                    'error' => $e->getMessage(),
+                ])->withInput();
             }
 
-            // Save to database
-            Property::insert([
-                'ptype_id' => $request->ptype_id,
-                'amenities_id' => $amenities,
-                'property_name' => $request->property_name,
-                'property_slug' => strtolower(str_replace(' ', '-', $request->property_name)),
-                'property_code' => $pcode,
-                'property_status' => $request->property_status,
-                'lowest_price' => $request->lowest_price,
-                'max_price' => $request->max_price,
-                'short_descp' => $request->short_descp,
-                'long_descp' => $request->long_descp,
-                'bedrooms' => $request->bedrooms,
-                'bathrooms' => $request->bathrooms,
-                'garage' => $garage,
-                'garage_size' => $request->garage_size,
-                'property_size' => $request->property_size,
-                'property_video' => $request->property_video,
-                'address' => $request->address,
-                'city' => $request->city,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
-                'neighborhood' => $request->neighborhood,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'featured' => $featured,
-                'hot' => $request->hot,
-                'agent_id' => $request->agent_id,
-                'status' => 1,
-                'property_thambnail' => $save_url,
-                'created_at' => Carbon::now(),
-            ]);
 
-            return redirect()->route('all.property')->with([
-                'message' => 'Property thambnail Inserted Successfully!',
-                'alert-type' => 'success',
-            ]);
-        } catch (\Exception $e) {
-            return back()->withErrors([
-                'error' => 'Something went wrong: ' . $e->getMessage(),
-            ])->withInput();
-        }
     }
 }
