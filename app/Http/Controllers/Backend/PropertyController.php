@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\Facility;
-use App\Models\MultiImage;
 use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class PropertyController extends Controller
 {
@@ -34,10 +34,22 @@ class PropertyController extends Controller
     {
         // ✅ Validate request inputs
         $request->validate([
-          
             'property_thambnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        $amen = $request->amenities_id;
+        $amenities = implode(",", $amen);
+        // dd($amenities);
+        
+        $pcode = IdGenerator::generate([
+           'table' => 'properties',
+           'field' => 'property_code',
+           'length' => 5,
+           'prefix' => 'PC-'
+        ]);
+        
+        
+        
         try {
             if ($request->hasFile('property_thambnail')) {
                 $image = $request->file('property_thambnail');
@@ -60,12 +72,39 @@ class PropertyController extends Controller
             }
 
             // Save to database
-            MultiImage::insert([
-                'property_thambnail'      => $save_url,
+            Property::insert([
+                'ptype_id' => $request->ptype_id,
+                'amenities_id' => $amenities,
+                'property_name' => $request->property_name,
+                'property_slug' => strtolower(str_replace(' ', '-', $request->property_name)),
+                'property_code' => $pcode,
+                'property_status' => $request->property_status,
+                'lowest_price' => $request->lowest_price,
+                'max_price' => $request->max_price,
+                'short_descp' => $request->short_descp,
+                'long_descp' => $request->long_descp,
+                'bedrooms' => $request->bedrooms,
+                'bathrooms' => $request->bathrooms,
+                'garage' => $garage,
+                'garage_size' => $request->garage_size,
+                'property_size' => $request->property_size,
+                'property_video' => $request->property_video,
+                'address' => $request->address,
+                'city' => $request->city,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'neighborhood' => $request->neighborhood,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'featured' => $featured,
+                'hot' => $request->hot,
+                'agent_id' => $request->agent_id,
+                'status' => 1,
+                'property_thambnail' => $save_url,
                 'created_at' => Carbon::now(),
             ]);
 
-            return redirect()->route('all.team')->with([
+            return redirect()->route('all.property')->with([
                 'message' => 'Property thambnail Inserted Successfully!',
                 'alert-type' => 'success',
             ]);
