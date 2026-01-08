@@ -14,17 +14,17 @@
                     <div class="card">
 							<div class="card-body">
 								<h6 class="card-title">Add Properties</h6>
-									<form>
-										
+									<form method="" action="" id="myForm" enctype="multipart/form-data">
+										@csrf
 									    <div class="row">
 											<div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Proprty Name</label>
 													<input type="text" class="form-control" name="property_name" >
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Property Status</label>
 													<select name="property_status" class="form-select" id="exampleFormControlSelect1">
 											            <option selected="" disabled="">Select Status</option>
@@ -36,26 +36,26 @@
 											</div><!-- Col -->
 										
 										    <div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Lowest Price</label>
 													<input type="text" class="form-control" name="lowest_price" >
 												</div>
 											</div>
 											<div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Max Price</label>
 													<input type="text" class="form-control" name="max_price" >
 												</div>
 											</div>
 										    <div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Main Thambnail</label>
 													<input type="file" class="form-control" name="property_thambnail" onChange="mainThamUrl(this)">
 													<img src="" alt="" id="mainThmb">
 												</div>
 											</div>
 											<div class="col-sm-6">
-												<div class="mb-3">
+												<div class="mb-3 form-group">
 													<label class="form-label">Multiple Image</label>
 													<input type="file" class="form-control" name="multi_img[]" id="multiImg" multiple="">
 													<div class="row" id="preview_img"></div>
@@ -158,7 +158,7 @@
                                            <div class="col-sm-4">
                                               <div class="mb-3">
                                                   <label class="form-label">Property Type </label>
-                                                  <select name="property_id" class="form-select" id="exampleFormControlSelect1">
+                                                  <select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
 											            <option selected="" disabled="">Select Type</option>
 													    @foreach($propertyType as $ptype)
 											               <option value="{{$ptype->id}}">{{$ptype->type_name}}</option>
@@ -194,13 +194,13 @@
 										<div class="col-sm-12">
 												<div class="mb-3">
 													<label class="form-label">Short Description</label>
-												    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+												    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="short_descp"></textarea>
 												</div>
 										</div><!-- Col -->
 										<div class="col-sm-12">
 												<div class="mb-3">
 													<label class="form-label">Long Description</label>
-													 <textarea class="form-control" name="tinymce" id="tinymceExample" rows="10"></textarea>
+													 <textarea class="form-control" id="tinymceExample" rows="10" name="long_descp"></textarea>
 												</div>
 										</div><!-- Col -->
 										
@@ -255,8 +255,10 @@
                                            <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
                                          </div>
                                         </div> <!---end row-->
+
+										<button type="submit" class="btn btn-primary submit">Save Changes</button>
 									</form>
-									<button type="button" class="btn btn-primary submit">Save Changes</button>
+									
 							</div>
 						</div>
             
@@ -437,40 +439,69 @@
 
 
 <!--========== End of add multiple class with ajax ==============-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function () {
     $('#myForm').validate({
-        rules: {
+    
+		rules: {
             amenities_name: {
                 required: true,
+				
             },
-            
+			property_name: {
+              required : true,
+
+            },
+			property_status: {
+				required: true,
+			},
+			lowest_price: {
+				required: true,
+			},
+			max_price: {
+				required: true,
+			},
+			ptype_id: {
+				required: true,
+			},
+			property_thambnail: {
+				required: true,
+			},
+			"multi_img[]": {
+				required: true,
+			},
         },
         messages: {
             amenities_name: {
                 required: 'Please Enter Amenities Name',
             },
+			property_name: {
+                required : 'Please Enter Property Name',
+            },
+			property_status: {
+               required : 'Please Select Property Status',
+            },
+			lowest_price: {
+              required : 'Please Enter Lowest Price',
+            },
+			max_price: {
+              required : 'Please Enter Max Price',
+            },
+			ptype_id: {
+              required : 'Please Select Property Type',
+            },
+			"amenities_id[]": {
+               required: true,
+            },
+			property_thambnail: {
+				required: 'Please Select Property Image',
+			},
+			"multi_img[]": {
+				required: 'Please Select Property MultiImage',
+			},
+
             
         },
         errorElement: 'span',
