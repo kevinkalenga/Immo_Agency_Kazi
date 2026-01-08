@@ -39,6 +39,12 @@ class PropertyController extends Controller
               // Multi images validation
             'multi_img' => 'nullable|array',
             'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+
+            // facility
+            'facility_name' => 'nullable|array',
+            'facility_name.*' => 'required|string|max:255',
+            'distance' => 'nullable|array',
+            'distance.*' => 'nullable|string|max:100',
         ]);
 
         $amenities = $request->amenities_id 
@@ -125,12 +131,32 @@ class PropertyController extends Controller
                            'photo_name' => 'uploads/property/multi_image/' . $make_name,
                        ]);
                    }
-               }
+                }
 
-                return redirect()->route('all.property')->with([
-                    'message' => 'Property Inserted Successfully!',
-                    'alert-type' => 'success',
-                ]);
+                
+                if ($request->has('facility_name')) {
+
+                    $facilities = count($request->facility_name);
+
+                    for ($i = 0; $i < $facilities; $i++) {
+
+                        $facility = new Facility();
+                        $facility->property_id = $property->id;
+                        $facility->facility_name = $request->facility_name[$i];
+                        $facility->distance = $request->distance[$i] ?? null;
+                        $facility->save();
+                    }
+                }
+
+                
+                
+                $notification = array(
+                 'message' => 'Property Inserted Successfully!',
+                 'alert-type' => 'success'
+                );
+
+              return redirect()->route('all.propertie')->with($notification);
+            
 
             } catch (\Exception $e) {
                 return back()->withErrors([
