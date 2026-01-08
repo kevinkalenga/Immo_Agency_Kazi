@@ -166,4 +166,14 @@ class PropertyController extends Controller
 
 
     }
+
+    public function EditPropertie($id)
+    {
+      $property = Property::findOrFail($id);
+      $propertyType = PropertyType::latest()->get();
+      $amenities = Amenities::latest()->get();
+      $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
+
+       return view('backend.property.edit_property', compact('property', 'propertyType', 'amenities', 'activeAgent'));
+    }
 }
