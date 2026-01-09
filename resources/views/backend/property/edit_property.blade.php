@@ -248,7 +248,7 @@
         <div class="card">
           <div class="card-body">
              <h6 class="card-title">Edit Main Thambnail Image </h6>
-             <form method="post" action="{{ route('update.property', $property->id) }}" id="myForm" enctype="multipart/form-data">
+             <form method="post" action="{{ route('update.propertie.thambnail', $property->id) }}" id="myForm" enctype="multipart/form-data">
               @csrf
                 <!-- <input type="hidden" name="id" value="{{ $property->id }}"> -->
                 <input type="hidden" name="old_img" value="{{ $property->property_thambnail }}" >

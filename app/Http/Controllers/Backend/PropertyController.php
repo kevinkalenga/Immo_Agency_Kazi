@@ -15,6 +15,8 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
+
+
 class PropertyController extends Controller
 {
     public function AllPropertie()
@@ -227,4 +229,48 @@ class PropertyController extends Controller
 
        return redirect()->route('all.propertie')->with($notification);
     }
+
+
+
+
+     
+    public function UpdatePropertieThambnail(Request $request, $id)
+    {
+         $pro_id = $request->id;
+         $oldImage = $request->old_img;
+         $image = $request->file('property_thambnail');
+
+         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+
+         $uploadPath = public_path('uploads/property/thambnail/');
+         if (!file_exists($uploadPath)) {
+             mkdir($uploadPath, 0755, true);
+         }
+
+        $manager = new ImageManager(new Driver());
+        $manager->read($image)
+            ->resize(370, 250)
+            ->save($uploadPath . $name_gen);
+
+        $save_url = 'uploads/property/thambnail/'.$name_gen;
+
+        if ($oldImage && file_exists(public_path($oldImage))) {
+            unlink(public_path($oldImage));
+        }
+
+        Property::findOrFail($pro_id)->update([
+            'property_thambnail' => $save_url,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message' => 'Property Image Thumbnail Updated Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+ 
+
+
 }
