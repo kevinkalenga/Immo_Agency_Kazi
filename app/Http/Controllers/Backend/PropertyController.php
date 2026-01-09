@@ -176,13 +176,13 @@ class PropertyController extends Controller
       $type = $property->amenities_id;
       $property_ami = explode(',', $type);
             
-      
+      $multiImage = MultiImage::where('property_id',$id)->get();
       
       $propertyType = PropertyType::latest()->get();
       $amenities = Amenities::latest()->get();
       $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-       return view('backend.property.edit_property', compact('property', 'propertyType', 'amenities', 'activeAgent', 'property_ami'));
+       return view('backend.property.edit_property', compact('property', 'propertyType', 'amenities', 'activeAgent', 'property_ami' ,'multiImage'));
     }
 
     public function UpdatePropertie(Request $request, $id)
