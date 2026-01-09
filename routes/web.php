@@ -68,6 +68,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::get('/add/propertie', 'AddPropertie')->name('add.propertie');
          Route::post('/store/propertie', 'StorePropertie')->name('store.propertie');
          Route::get('/edit/propertie/{id}', 'EditPropertie')->name('edit.propertie');
+         Route::post('/update/propertie/{id}', 'UpdatePropertie')->name('update.propertie');
        
     });
  });

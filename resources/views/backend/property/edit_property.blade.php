@@ -14,7 +14,7 @@
                     <div class="card">
 							<div class="card-body">
 								<h6 class="card-title">Edit Properties</h6>
-									<form method="post" action="{{route('store.propertie')}}" id="myForm" enctype="multipart/form-data">
+									<form method="post" action="{{route('update.propertie', $property->id)}}" id="myForm" enctype="multipart/form-data">
 										@csrf
 									    <div class="row">
 											<div class="col-sm-6">
