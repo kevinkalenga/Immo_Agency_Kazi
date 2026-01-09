@@ -70,6 +70,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::get('/edit/propertie/{id}', 'EditPropertie')->name('edit.propertie');
          Route::post('/update/propertie/{id}', 'UpdatePropertie')->name('update.propertie');
          Route::post('/update/propertie/thambnail/{id}', 'UpdatePropertieThambnail')->name('update.propertie.thambnail');
+         Route::post('/update/propertie/multiimage/{id}', 'UpdatePropertieMultiimage')->name('update.propertie.multiimage');
        
     });
  });

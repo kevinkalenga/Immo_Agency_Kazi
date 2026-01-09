@@ -271,6 +271,52 @@ class PropertyController extends Controller
         return redirect()->back()->with($notification);
     }
  
+    
+
+  public function UpdatePropertieMultiimage(Request $request)
+  {
+    if ($request->hasFile('multi_img')) {
+
+        foreach ($request->file('multi_img') as $id => $img) {
+
+            // Find old image
+            $imgDel = MultiImage::findOrFail($id);
+
+            // Delete old image file
+            if (file_exists(public_path($imgDel->photo_name))) {
+                unlink(public_path($imgDel->photo_name));
+            }
+
+            // Generate new image name
+            $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+            // Upload path
+            $uploadPath = public_path('uploads/property/multi_image/');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            // Resize & save
+            $manager = new ImageManager(new Driver());
+            $manager->read($img)
+                ->resize(770, 520)
+                ->save($uploadPath . $name_gen);
+
+            // Update DB
+            MultiImage::where('id', $id)->update([
+                'photo_name' => 'uploads/property/multi_image/' . $name_gen,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+    $notification = [
+        'message' => 'Property Multi Images Updated Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
 
 
 }

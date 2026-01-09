@@ -319,7 +319,7 @@
 
 
 
-    <form method="post" action="{{ route('update.propertie.thambnail', $property->id) }}" id="myForm" enctype="multipart/form-data">
+    <form method="post" action="{{ route('update.propertie.multiimage', $property->id) }}" id="myForm" enctype="multipart/form-data">
 
 
                 @csrf
@@ -397,7 +397,7 @@
             <td> 
 
 
-            <input type="file" class="form-group" name="multi_img">
+            <input type="file" class="form-control" name="multi_img[{{$img->id}}]">
 
 
             </td>
@@ -445,10 +445,7 @@
       
 
 
-<br><br>
 
-
-  <button type="submit" class="btn btn-primary">Save Changes </button>
 
 
 
