@@ -412,7 +412,7 @@
 
 
 
-    <a href="" class="btn btn-danger" id="delete">Delete </a>
+    <a href="{{route('delete.propertie.multiimg', $img->id)}}" class="btn btn-danger" id="delete">Delete </a>
 
 
             </td>

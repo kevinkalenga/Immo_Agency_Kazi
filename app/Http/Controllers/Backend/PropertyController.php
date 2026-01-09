@@ -319,4 +319,27 @@ class PropertyController extends Controller
   }
 
 
+  public function DeletePropertieMultiimage($id)
+  {
+    // Find image record
+    $multiImg = MultiImage::findOrFail($id);
+
+    // Delete image file from storage
+    if ($multiImg->photo_name && file_exists(public_path($multiImg->photo_name))) {
+        unlink(public_path($multiImg->photo_name));
+    }
+
+    // Delete DB record
+    $multiImg->delete();
+
+    $notification = [
+        'message' => 'Property Multi Image Deleted Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
+
+
+
 }
