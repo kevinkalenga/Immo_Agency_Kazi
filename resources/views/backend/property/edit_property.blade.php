@@ -287,194 +287,72 @@
 <!-- /// Property Multi Image Update -->
 
  <div class="page-content" style="margin-top: -35px;" > 
-
-
-       
-
-
-        <div class="row profile-body"> 
-
-
-          <div class="col-md-12 col-xl-12 middle-wrapper">
-
-
-            <div class="row">
-
-
-       
-
-
-       <div class="card">
-
-
-    <div class="card-body">
-
-
-        <h6 class="card-title">Edit Multi Image  </h6>
-
-
-            
-
-
-
-
-
-    <form method="post" action="{{ route('update.propertie.multiimage', $property->id) }}" id="myForm" enctype="multipart/form-data">
-
-
-                @csrf
-
-    <input type="hidden" name="multi_img" value="{{ $property->property_thambnail }}" >
-
-
-
-
-
-
-<div class="table-responsive">
-
-
-<table class="table table-striped">
-
-
-    <thead>
-
-
-        <tr>
-
-
-            <th>Sl</th>
-
-
-            <th>Image</th>
-
-
-            <th>Change Image </th>
-
-
-            <th>Delete </th> 
-
-
-        </tr>
-
-
-    </thead>
-
-
-    <tbody>
-
-
-        
-
-
-        @foreach($multiImage as $key => $img)
-
-
-        <tr>
-
-
-
-
-
-             <td>{{ $key+1 }}</td>
-
-
-
-
-
-            <td class="py-1">
-
-
-                <img src="{{ asset($img->photo_name) }}" alt="image"  style="width:50px; height:50px;">
-
-
-            </td> 
-
-
-           
-
-
-            <td> 
-
-
-            <input type="file" class="form-control" name="multi_img[{{$img->id}}]">
-
-
-            </td>
-
-
-            <td>
-
-
-    <input type="submit" class="btn btn-primary px-4" value="Update Image" >
-
-
-
-
-
-    <a href="{{route('delete.propertie.multiimg', $img->id)}}" class="btn btn-danger" id="delete">Delete </a>
-
-
-            </td>
-
-
-        </tr>
-
-
-        @endforeach
-
-
-         
-
-
-    </tbody>
-
-
-</table>
-
-
-</div>
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-            </form> 
-
-
-        </div>
-
-
+    <div class="row profile-body"> 
+        <div class="col-md-12 col-xl-12 middle-wrapper">
+          <div class="row">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Edit Multi Image  </h6>
+
+       <form method="post" action="{{ route('update.propertie.multiimage', $property->id) }}" id="myForm" enctype="multipart/form-data">
+          @csrf
+          <input type="hidden" name="multi_img" value="{{ $property->property_thambnail }}" >
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Sl</th>
+                  <th>Image</th>
+                  <th>Change Image </th>
+                  <th>Delete </th> 
+                </tr>
+              </thead>
+              <tbody>
+               @foreach($multiImage as $key => $img)
+               <tr>
+                <td>{{ $key+1 }}</td>
+                <td class="py-1">
+                  <img src="{{ asset($img->photo_name) }}" alt="image"  style="width:50px; height:50px;">
+                </td> 
+                <td> 
+                   <input type="file" class="form-control" name="multi_img[{{$img->id}}]">
+                </td>
+                <td>
+                 <input type="submit" class="btn btn-primary px-4" value="Update Image" >
+                 <a href="{{route('delete.propertie.multiimg', $img->id)}}" class="btn btn-danger" id="delete">Delete </a>
+                </td>
+               </tr>
+              @endforeach
+             </tbody>
+           </table>
           </div>
+		</form> 
+           
+		<form method="post" action="{{ route('store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
+          @csrf
+		  <input type="hidden" name="property_id" value="{{$property->id}}">
+		  <table class="table table-striped">
+		    <tbody>
+		        <tr>
+				  <td>
+					<input type="file" name="multi_img[]" class="form-control" multiple required>
+				  </td>
+				  <td>
+					 <input type="submit" class="btn btn-info px-4" value="Add Image">
+				  </td>
+			    </tr>
+		
+            </tbody>
+          </table>
+		</form> 
 
 
-
-
-
-        </div>
-
-
+		  
+      </div>
     </div>
-
-
+   </div>
   </div>
-
-
+  </div>
 </div> 
 
 

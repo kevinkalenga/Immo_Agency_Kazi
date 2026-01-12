@@ -340,6 +340,48 @@ class PropertyController extends Controller
     return redirect()->back()->with($notification);
   }
 
+  public function StoreNewMultiimage(Request $request)
+  {
+    // Validation
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+        'multi_img' => 'required|array',
+        'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $property_id = $request->property_id;
+
+    $manager = new ImageManager(new Driver());
+    $uploadPath = public_path('uploads/property/multi_image/');
+
+    if (!file_exists($uploadPath)) {
+        mkdir($uploadPath, 0755, true);
+    }
+
+    foreach ($request->file('multi_img') as $img) {
+
+        $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+        $manager->read($img)
+            ->resize(770, 520)
+            ->save($uploadPath . $name_gen);
+
+        MultiImage::create([
+            'property_id' => $property_id,
+            'photo_name' => 'uploads/property/multi_image/' . $name_gen,
+            'created_at' => Carbon::now(),
+        ]);
+    }
+
+    $notification = [
+        'message' => 'New Property Images Added Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
+
+
 
 
 }
