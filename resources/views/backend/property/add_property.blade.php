@@ -255,7 +255,7 @@
                                            <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
                                          </div>
                                         </div> <!---end row-->
-
+                                       <br><br>
 										<button type="submit" class="btn btn-primary submit">Save Changes</button>
 									</form>
 									

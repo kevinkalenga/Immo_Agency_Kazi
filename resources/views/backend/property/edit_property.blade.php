@@ -373,9 +373,13 @@
         <div class="card">
           <div class="card-body">
              <h6 class="card-title">Edit Property Facility </h6>
-             <form method="post" action="{{ route('update.propertie.thambnail', $property->id) }}" id="myForm" enctype="multipart/form-data">
+             <form method="post" action="{{ route('update.propertie.facilities', $property->id) }}" id="myForm" enctype="multipart/form-data">
               @csrf
-                @foreach($facilities as $item)          
+                <input type="hidden" name="property_id" value="{{$property->id}}"> 
+               <div class="add_item">
+                @foreach($facilities as $item) 
+                
+                 <div class="whole_extra_item_add" id="whole_extra_item_add">        
       <div class="whole_extra_item_delete" id="whole_extra_item_delete">
 
 
@@ -470,7 +474,12 @@
 
 
       </div>
-            @endforeach   
+      </div>
+    
+            @endforeach  
+           </div>
+            <br><br> 
+                <button type="submit" class="btn btn-primary">Save Changes </button>
              </form> 
 
           </div>
@@ -625,26 +634,17 @@
 
       $(document).on("click",".addeventmore",function(){
 
-
-            var whole_extra_item_add = $("#whole_extra_item_add").html();
-
-
-            $(this).closest(".add_item").append(whole_extra_item_add);
-
-
-            counter++;
+             var html = $(".whole_extra_item_add").html();
+            $(".add_item").append(html);
 
 
       });
 
 
       $(document).on("click",".removeeventmore",function(event){
+             $(this).closest(".whole_extra_item_delete").remove();
 
-
-            $(this).closest("#whole_extra_item_delete").remove();
-
-
-            counter -= 1
+         
 
 
       });

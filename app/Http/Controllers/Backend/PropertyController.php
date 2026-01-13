@@ -382,6 +382,41 @@ class PropertyController extends Controller
     return redirect()->back()->with($notification);
   }
 
+   
+
+   public function UpdatePropertyFacilities(Request $request)
+{
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+        'facility_name' => 'nullable|array',
+        'facility_name.*' => 'required|string|max:255',
+        'distance' => 'nullable|array',
+    ]);
+
+    $property_id = $request->property_id;
+
+    // Supprimer les anciennes facilities
+    Facility::where('property_id', $property_id)->delete();
+
+    // Réinsérer les nouvelles
+    if ($request->facility_name) {
+        foreach ($request->facility_name as $index => $facility) {
+            Facility::create([
+                'property_id'   => $property_id,
+                'facility_name' => $facility,
+                'distance'      => $request->distance[$index] ?? null,
+            ]);
+        }
+    }
+
+    return redirect()->back()->with([
+        'message' => 'Property Facilities Updated Successfully',
+        'alert-type' => 'success'
+    ]);
+}
+
+
+
 
 
 
