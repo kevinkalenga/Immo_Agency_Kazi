@@ -385,36 +385,68 @@ class PropertyController extends Controller
    
 
    public function UpdatePropertyFacilities(Request $request)
-{
-    $request->validate([
+   {
+      $request->validate([
         'property_id' => 'required|exists:properties,id',
         'facility_name' => 'nullable|array',
         'facility_name.*' => 'required|string|max:255',
         'distance' => 'nullable|array',
-    ]);
+      ]);
 
-    $property_id = $request->property_id;
+       $property_id = $request->property_id;
 
-    // Supprimer les anciennes facilities
-    Facility::where('property_id', $property_id)->delete();
+       // Supprimer les anciennes facilities
+       Facility::where('property_id', $property_id)->delete();
 
     // Réinsérer les nouvelles
-    if ($request->facility_name) {
-        foreach ($request->facility_name as $index => $facility) {
+      if ($request->facility_name) {
+          foreach ($request->facility_name as $index => $facility) {
             Facility::create([
                 'property_id'   => $property_id,
                 'facility_name' => $facility,
                 'distance'      => $request->distance[$index] ?? null,
             ]);
-        }
-    }
+          }
+       }
 
-    return redirect()->back()->with([
+      return redirect()->back()->with([
         'message' => 'Property Facilities Updated Successfully',
         'alert-type' => 'success'
-    ]);
-}
+      ]);
+    }
+    
 
+
+     
+    public function DeletePropertie($id)
+    {
+        $property = Property::findOrFail($id);
+
+        // Supprimer thumbnail
+        if ($property->property_thambnail && file_exists(public_path($property->property_thambnail))) {
+            unlink(public_path($property->property_thambnail));
+        }
+
+        // Supprimer multi images
+        $multiImages = MultiImage::where('property_id', $id)->get();
+        foreach ($multiImages as $img) {
+            if ($img->photo_name && file_exists(public_path($img->photo_name))) {
+                unlink(public_path($img->photo_name));
+            }
+        }
+        MultiImage::where('property_id', $id)->delete();
+
+        // Supprimer facilities
+        Facility::where('property_id', $id)->delete();
+
+        // Supprimer la propriété
+        $property->delete();
+
+       return redirect()->back()->with([
+          'message' => 'Property Deleted Successfully',
+          'alert-type' => 'success'
+       ]);
+    }
 
 
 

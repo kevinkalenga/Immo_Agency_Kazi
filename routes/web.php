@@ -68,12 +68,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::get('/add/propertie', 'AddPropertie')->name('add.propertie');
          Route::post('/store/propertie', 'StorePropertie')->name('store.propertie');
          Route::get('/edit/propertie/{id}', 'EditPropertie')->name('edit.propertie');
+         Route::get('/delete/propertie/{id}', 'DeletePropertie')->name('delete.propertie');
          Route::post('/update/propertie/{id}', 'UpdatePropertie')->name('update.propertie');
          Route::post('/update/propertie/thambnail/{id}', 'UpdatePropertieThambnail')->name('update.propertie.thambnail');
          Route::post('/update/propertie/multiimage/{id}', 'UpdatePropertieMultiimage')->name('update.propertie.multiimage');
          Route::get('/delete/propertie/multiimage/{id}', 'DeletePropertieMultiimage')->name('delete.propertie.multiimg');
          Route::post('/store/new/multiimage', 'StoreNewMultiimage')->name('store.new.multiimage');
          Route::post('/update/property/facilities', 'UpdatePropertyFacilities')->name('update.propertie.facilities');
+        
        
     });
  });
