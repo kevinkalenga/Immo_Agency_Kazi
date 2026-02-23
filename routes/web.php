@@ -81,7 +81,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         
        
     });
- });
+});
+
+
+ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware('guest');  // ← empêche un admin déjà connecté de revenir sur login
+
+
+
+
 
 // Agent
  Route::middleware(['auth', 'role:agent'])->group(function(){
@@ -90,5 +97,5 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
  });
 
 
- Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
 
