@@ -99,6 +99,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
  Route::get('/agent/login', [AgentController::class, 'AgentLogin'])
      ->name('agent.login')
      ->middleware('guest'); // empêche un agent déjà connecté de revenir sur login
+ Route::post('/agent/register', [AgentController::class, 'AgentRegister'])->name('agent.register'); 
 
 
 
