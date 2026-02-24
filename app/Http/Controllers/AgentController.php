@@ -100,5 +100,48 @@ class AgentController extends Controller
 
        return redirect()->back()->with($notification);
      
+   }
+
+    public function AgentChangePassword()
+    {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('agent.agent_change_password', compact('profileData'));
+    }
+
+
+    public function AgentPasswordUpdate(Request $request) 
+    {
+        // validation
+       $request->validate([
+          'old_password' => 'required',
+          'new_password' => 'required|confirmed',
+          
+       ]);
+        
+      // check that old pwd and the new authenticated pwd match(l'ancien mdp est erronnée)   
+       if(!Hash::check($request->old_password, auth::user()->password)) {
+
+            $notification = array(
+              'message' => 'Old Password Does not Match!',
+              'alert-type' => 'error'
+            );
+
+          return back()->with($notification);
+    
+    
+        }
+
+        // Update the new pwd 
+        User::whereId(auth::user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+           'message' => 'Your Password Is Updated Successfully',
+           'alert-type' => 'success'
+        );
+
+       return back()->with($notification);
     }
 }
