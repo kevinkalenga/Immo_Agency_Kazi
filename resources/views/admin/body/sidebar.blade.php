@@ -1,7 +1,7 @@
 <nav class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-          Easy<span>Leaning</span>
+          Estate <span>Admin</span>
         </a>
         <div class="sidebar-toggler not-active">
           <span></span>
