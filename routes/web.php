@@ -81,6 +81,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         
        
     });
+
+
+     // Agent All Route from admin
+     Route::controller(AdminController::class)->group(function(){
+         Route::get('/all/agent', 'AllAgent')->name('all.agent');
+        
+    });
 });
 
 

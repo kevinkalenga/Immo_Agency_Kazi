@@ -116,6 +116,13 @@ class AdminController extends Controller
         );
 
        return back()->with($notification);
-    }
+   }
+
+   /////////////// Agent User All Method /////////
+   public function AllAgent()
+   {
+        $allAgent = User::where('role', 'agent')->get();
+        return view('backend.agentUser.all_agent', compact('allAgent'));
+   }
    
 }
