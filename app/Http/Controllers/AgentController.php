@@ -62,4 +62,43 @@ class AgentController extends Controller
 
         return redirect('/agent/login')->with($notification);
     }
+
+    public function AgentProfile()
+    {
+       $id = Auth::user()->id;
+       $profileData = User::find($id);
+
+       return view('agent.agent_profile_view', compact('profileData'));
+    }
+
+
+    public function AgentProfileStore(Request $request)
+    {
+       $id = Auth::user()->id;
+       $data = User::find($id);
+       $data->name = $request->name;
+       $data->username = $request->username;
+       $data->email = $request->email;
+       $data->phone = $request->phone;
+       $data->address = $request->address;
+
+       if($request->file('photo')) {
+          $file = $request->file('photo');
+        //   to remove an existing img before downloading
+          @unlink(public_path('uploads/agent_images/'.$data->photo));
+          $filename = date('YmdHi').$file->getClientOriginalName();
+          $file->move(public_path('uploads/agent_images'), $filename);
+          $data['photo'] = $filename;
+       }
+
+       $data->save();
+
+        $notification = array(
+           'message' => 'Agent Profile Updated Successfully',
+           'alert-type' => 'success'
+        );
+
+       return redirect()->back()->with($notification);
+     
+    }
 }
