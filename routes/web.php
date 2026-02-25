@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
+use App\Http\Controllers\Agent\AgentPropertyController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -118,6 +119,15 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
      ->name('agent.login')
      ->middleware('guest'); // empêche un agent déjà connecté de revenir sur login
  Route::post('/agent/register', [AgentController::class, 'AgentRegister'])->name('agent.register'); 
+
+ Route::middleware(['auth', 'role:agent'])->group(function(){
+        //  Agent All Property   
+         Route::controller(AgentPropertyController::class)->group(function(){
+           Route::get('agent/all/propertie', 'AgentAllPropertie')->name('agent.all.propertie');
+   
+        
+        });
+ });
 
 
 

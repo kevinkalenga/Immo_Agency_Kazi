@@ -43,7 +43,7 @@
             <div class="collapse" id="property">
               <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="{{route('all.propertie')}}" class="nav-link">All Properties</a>
+                  <a href="{{route('agent.all.propertie')}}" class="nav-link">All Properties</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('add.propertie')}}" class="nav-link">Add Property</a>
