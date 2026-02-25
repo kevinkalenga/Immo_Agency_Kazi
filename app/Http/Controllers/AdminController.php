@@ -130,9 +130,10 @@ class AdminController extends Controller
    }
 
 
-   public function StoreAgent(Request $request){
+   public function StoreAgent(Request $request)
+   {
 
-    User::insert([
+      User::insert([
         'name' => $request->name,
         'email' => $request->email,
         'phone' => $request->phone,
@@ -140,7 +141,7 @@ class AdminController extends Controller
         'password' => Hash::make($request->password),
         'role' => 'agent',
         'status' => 'active', 
-    ]);
+       ]);
 
 
        $notification = array(
@@ -151,6 +152,53 @@ class AdminController extends Controller
         return redirect()->route('all.agent')->with($notification); 
 
 
-  }
+    }
+
+
+    public function EditAgent($id){
+
+    $allAgent = User::findOrFail($id);
+    return view('backend.agentUser.edit_agent',compact('allAgent'));
+
+  }// End Method 
+
+
+    public function UpdateAgent(Request $request)
+    {
+
+      $user_id = $request->id;
+
+      User::findOrFail($user_id)->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address, 
+      ]);
+
+
+       $notification = array(
+            'message' => 'Agent Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.agent')->with($notification);  
+
+    }
+
+
+    public function DeleteAgent($id)
+    {
+
+       User::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Agent Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification); 
+
+    }
+
    
 }
