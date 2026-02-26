@@ -125,9 +125,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::controller(AgentPropertyController::class)->group(function(){
            Route::get('agent/all/propertie', 'AgentAllPropertie')->name('agent.all.propertie');
            Route::get('/agent/add/propertie', 'AgentAddPropertie')->name('agent.add.propertie'); 
-           Route::post('/agent/store/property', 'AgentStorePropertie')->name('agent.store.propertie'); 
+           Route::post('/agent/store/propertie', 'AgentStorePropertie')->name('agent.store.propertie'); 
+           Route::get('/agent/edit/propertie/{id}', 'AgentEditPropertie')->name('agent.edit.propertie'); 
+           Route::post('/agent/update/propertie/{id}', 'AgentUpdatePropertie')->name('agent.update.propertie'); 
+           Route::post('/agent/update/property/thambnail', 'AgentUpdatePropertieThambnail')->name('agent.update.propertie.thambnail'); 
+           Route::post('/agent/update/property/multiimage', 'AgentUpdatePropertieMultiimage')->name('agent.update.propertie.multiimage'); 
+           Route::get('/agent/property/multiimg/delete/{id}', 'AgentPropertieMultiimgDelete')->name('agent.propertie.multiimg.delete'); 
    
-        
+         
         });
  });
 

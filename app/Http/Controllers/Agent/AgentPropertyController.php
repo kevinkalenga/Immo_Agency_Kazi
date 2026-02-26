@@ -173,4 +173,186 @@ class AgentPropertyController extends Controller
 
 
     }
+
+    public function AgentEditPropertie($id)
+    {
+      $facilities = Facility::where('property_id', $id)->get();
+      $property = Property::findOrFail($id);
+      
+      $type = $property->amenities_id;
+      $property_ami = explode(',', $type);
+            
+      $multiImage = MultiImage::where('property_id',$id)->get();
+      
+      $propertyType = PropertyType::latest()->get();
+      $amenities = Amenities::latest()->get();
+    
+
+       return view('agent.property.edit_property', compact('property', 'propertyType', 'amenities', 'property_ami' ,'multiImage', 'facilities'));
+    }
+
+
+    public function AgentUpdatePropertie(Request $request, $id)
+    {
+      
+       $request->validate([
+        'ptype_id' => 'required|exists:property_types,id',
+        'property_name' => 'required|string|max:255',
+        'property_status' => 'required|string',
+        'lowest_price' => 'required|numeric',
+        'max_price' => 'required|numeric',
+          // … autres champs nécessaires
+    ]);
+    
+    
+       // dd('UPDATE ROUTE TOUCHED');
+      $amenities = $request->amenities_id
+          ? implode(',', $request->amenities_id)
+          : null;
+
+      $property = Property::findOrFail($id);
+
+      $property->update([
+        'ptype_id'        => $request->ptype_id,
+        'amenities_id'    => $amenities, // ✅ ICI
+        'property_name'   => $request->property_name,
+        'property_slug'   => Str::slug($request->property_name),
+        'property_status' => $request->property_status,
+        'lowest_price'    => $request->lowest_price,
+        'max_price'       => $request->max_price,
+        'short_descp'     => $request->short_descp,
+        'long_descp'      => $request->long_descp,
+        'bedrooms'        => $request->bedrooms,
+        'bathrooms'       => $request->bathrooms,
+        'garage'          => $request->garage,
+        'garage_size'     => $request->garage_size,
+        'property_size'   => $request->property_size,
+        'property_video'  => $request->property_video,
+        'address'         => $request->address,
+        'city'            => $request->city,
+        'state'           => $request->state,
+        'postal_code'     => $request->postal_code,
+        'neighborhood'    => $request->neighborhood,
+        'latitude'        => $request->latitude,
+        'longitude'       => $request->longitude,
+        'featured'        => $request->has('featured') ? 1 : 0,
+        'hot'             => $request->has('hot') ? 1 : 0,
+        'agent_id'        => Auth::user()->id,
+      ]);
+
+      return redirect()->route('agent.all.propertie')->with([
+        'message' => 'Property Updated Successfully',
+        'alert-type' => 'success'
+      ]);
+    }
+
+
+    public function AgentUpdatePropertieThambnail(Request $request)
+    {
+         $pro_id = $request->id;   // récupère l'id depuis le hidden input
+
+         $oldImage = $request->old_img;
+         $image = $request->file('property_thambnail');
+
+         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+
+         $uploadPath = public_path('uploads/property/thambnail/');
+         if (!file_exists($uploadPath)) {
+             mkdir($uploadPath, 0755, true);
+         }
+
+        $manager = new ImageManager(new Driver());
+        $manager->read($image)
+            ->resize(370, 250)
+            ->save($uploadPath . $name_gen);
+
+        $save_url = 'uploads/property/thambnail/'.$name_gen;
+
+        if ($oldImage && file_exists(public_path($oldImage))) {
+            unlink(public_path($oldImage));
+        }
+
+        Property::findOrFail($pro_id)->update([
+            'property_thambnail' => $save_url,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $notification = [
+            'message' => 'Property Image Thumbnail Updated Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+ 
+    
+
+  public function AgentUpdatePropertieMultiimage(Request $request)
+  {
+    if ($request->hasFile('multi_img')) {
+
+        foreach ($request->file('multi_img') as $id => $img) {
+
+            // Find old image
+            $imgDel = MultiImage::findOrFail($id);
+
+            // Delete old image file
+            if (file_exists(public_path($imgDel->photo_name))) {
+                unlink(public_path($imgDel->photo_name));
+            }
+
+            // Generate new image name
+            $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+            // Upload path
+            $uploadPath = public_path('uploads/property/multi_image/');
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
+            // Resize & save
+            $manager = new ImageManager(new Driver());
+            $manager->read($img)
+                ->resize(770, 520)
+                ->save($uploadPath . $name_gen);
+
+            // Update DB
+            MultiImage::where('id', $id)->update([
+                'photo_name' => 'uploads/property/multi_image/' . $name_gen,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
+    $notification = [
+        'message' => 'Property Multi Images Updated Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
+
+
+  public function AgentPropertieMultiimgDelete($id)
+  {
+    // Find image record
+    $multiImg = MultiImage::findOrFail($id);
+
+    // Delete image file from storage
+    if ($multiImg->photo_name && file_exists(public_path($multiImg->photo_name))) {
+        unlink(public_path($multiImg->photo_name));
+    }
+
+    // Delete DB record
+    $multiImg->delete();
+
+    $notification = [
+        'message' => 'Property Multi Image Deleted Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
+
+
 }

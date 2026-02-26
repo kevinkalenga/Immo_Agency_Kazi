@@ -1,6 +1,6 @@
-@extends('admin.admin_dashboard')
+@extends('agent.agent_dashboard')
 
-@section('admin') 
+@section('agent') 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <div class="page-content">
@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Edit Properties</h6>
-                        <form method="post" action="{{route('update.propertie', $property->id)}}" id="propertyForm" enctype="multipart/form-data">
+                        <form method="post" action="{{route('agent.update.propertie', $property->id)}}" id="propertyForm" enctype="multipart/form-data">
                             @csrf
                            
                             <div class="row">
@@ -146,8 +146,8 @@
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Property Type</label>
-                                        <select name="ptype_id" class="form-select">
-                                            <option selected="" disabled="">Select Type</option>
+                                        <select name="ptype_id" class="form-select" required>
+                                            <option selected="">Select Type</option>
                                             @foreach($propertyType as $ptype)
                                                 <option value="{{$ptype->id}}" {{$ptype->id == $property->ptype_id ? 'selected':''}}>{{$ptype->type_name}}</option>
                                             @endforeach
@@ -164,17 +164,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Agent</label>
-                                        <select name="agent_id" class="form-select">
-                                            <option selected="" disabled="">Select Agent</option>
-                                            @foreach($activeAgent as $agent)
-                                                <option value="{{$agent->id}}" {{$agent->id == $property->agent_id ? 'selected':''}}>{{$agent->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                               
                             </div>
                             <!-- Short / Long Description -->
                             <div class="col-sm-12">
@@ -211,8 +201,8 @@
 
     <!-- Main Thumbnail Update -->
     <!-- ... (section unchanged, comme ton code original) ... -->
-      <!-- ================== UPDATE MAIN THUMBNAIL ================== -->
- <div class="page-content" style="margin-top: 25px;">                
+     <!-- ================== UPDATE MAIN THUMBNAIL ================== -->
+      <div class="page-content" style="margin-top: 25px;">                
     <div class="row profile-body">           
         <div class="col-md-12 col-xl-12 middle-wrapper">            
             <div class="row">              
@@ -221,7 +211,7 @@
                         <h6 class="card-title">Edit Main Thambnail Image</h6>
 
                         <form method="post"
-                              action="{{ route('update.propertie', $property->id) }}"
+                              action="{{ route('agent.update.propertie.thambnail') }}"
                               id="myForm"
                               enctype="multipart/form-data">
                             @csrf
@@ -261,7 +251,7 @@
     <!-- Multi Images Update -->
     <!-- ... (section unchanged, comme ton code original) ... -->
      <!-- ================== UPDATE MULTI IMAGES ================== -->
- <div class="page-content" style="margin-top: -35px;" > 
+      <div class="page-content" style="margin-top: -35px;" > 
        
     <div class="row profile-body"> 
         <div class="col-md-12 col-xl-12 middle-wrapper">
@@ -271,7 +261,7 @@
                         <h6 class="card-title">Edit Multi Image</h6>
 
                         <form method="post"
-                              action="{{ route('update.propertie.multiimage', $property->id) }}"
+                              action="{{ route('agent.update.propertie.multiimage', $property->id) }}"
                               id="myForm"
                               enctype="multipart/form-data">
                             @csrf
@@ -305,7 +295,7 @@
 
                                             <td>
                                                 <input type="submit" class="btn btn-primary px-4" value="Update Image" >
-                                                <a href="{{ route('delete.propertie.multiimg', $img->id) }}"
+                                                <a href="{{ route('agent.propertie.multiimg.delete', $img->id) }}"
                                                    class="btn btn-danger">
                                                     Delete
                                                 </a>
@@ -316,15 +306,10 @@
                                 </table>
                             </div>
 
-                            <br><br>
-                            <button type="submit" class="btn btn-primary">
-                                Save Changes
-                            </button>
+                           
 
                         </form> 
-                        <!-- test -->
-                          
-                             		<form method="post" action="{{ route('store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                                                  		<form method="post" action="{{ route('store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
           @csrf
 		  <input type="hidden" name="property_id" value="{{$property->id}}">
 		  <table class="table table-striped">
@@ -347,6 +332,7 @@
         </div>
     </div>
 </div>
+
 
     <!-- Facility Update -->
     <div class="page-content" style="margin-top: -35px;">
