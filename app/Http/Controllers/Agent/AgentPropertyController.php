@@ -16,6 +16,7 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Str;
 use Auth;
+use DB;
 
 class AgentPropertyController extends Controller
 {
@@ -40,6 +41,9 @@ class AgentPropertyController extends Controller
 
     public function AgentStorePropertie(Request $request)
     {
+        $id = Auth::user()->id;
+        $uid = User::findOrFail($id);
+        $nId = $uid->credit;
         // Validate request inputs
         $request->validate([
             'property_thambnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
@@ -155,7 +159,9 @@ class AgentPropertyController extends Controller
                     }
                 }
 
-                
+                User::where('id', $id)->update([
+                    'credit' => DB::raw('1 + '.$nId),
+                ]);
                 
                 $notification = array(
                  'message' => 'Property Inserted Successfully!',
