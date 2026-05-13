@@ -476,5 +476,10 @@ class AgentPropertyController extends Controller
        ]);
     }
 
+    public function BuyPackage()
+    {
+        return view('agent.package.buy_package');
+    }
+
    
 }

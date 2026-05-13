@@ -112,6 +112,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::post('/agent/profile/store', [AgentController::class, 'AgentProfileStore'])->name('agent.profile.store');
     Route::get('/agent/change/password', [AgentController::class, 'AgentChangePassword'])->name('agent.change.password');
     Route::post('/agent/password/update', [AgentController::class, 'AgentPasswordUpdate'])->name('agent.password.update');
+   
 
  });
 
@@ -134,11 +135,15 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
            Route::post('/agent/store/new/multiimage', 'AgentStoreNewMultiimage')->name('agent.store.new.multiimage'); 
            Route::post('/agent/update/propertie/facilities', 'AgentUpdatePropertieFacilities')->name('agent.update.propertie.facilities'); 
            Route::get('/agent/details/propertie/{id}', 'AgentDetailsProperty')->name('agent.details.propertie');
-          Route::get('/agent/delete/propertie/{id}', 'AgentDeletePropertie')->name('agent.delete.propertie'); 
+           Route::get('/agent/delete/propertie/{id}', 'AgentDeletePropertie')->name('agent.delete.propertie'); 
 
           
    
          
+        });
+         //   Agent Buy Package  
+         Route::controller(AgentPropertyController::class)->group(function(){
+             Route::get('/buy/package', 'BuyPackage')->name('buy.package');
         });
  });
 
