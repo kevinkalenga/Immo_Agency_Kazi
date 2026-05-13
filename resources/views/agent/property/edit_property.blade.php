@@ -309,23 +309,23 @@
                            
 
                         </form> 
-                                                  		<form method="post" action="{{ route('store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
-          @csrf
-		  <input type="hidden" name="property_id" value="{{$property->id}}">
-		  <table class="table table-striped">
-		    <tbody>
-		        <tr>
-				  <td>
-					<input type="file" name="multi_img[]" class="form-control" multiple required>
-				  </td>
-				  <td>
-					 <input type="submit" class="btn btn-info px-4" value="Add Image">
-				  </td>
-			    </tr>
+                        <form method="post" action="{{ route('agent.store.new.multiimage') }}" id="myForm" enctype="multipart/form-data">
+                          @csrf
+		                  <input type="hidden" name="property_id" value="{{$property->id}}">
+		                  <table class="table table-striped">
+		                    <tbody>
+		                        <tr>
+				                  <td>
+					                <input type="file" name="multi_img[]" class="form-control" multiple required>
+				                  </td>
+				                  <td>
+					                 <input type="submit" class="btn btn-info px-4" value="Add Image">
+				                  </td>
+			                    </tr>
 		
-            </tbody>
-          </table>
-		</form> 
+                            </tbody>
+                          </table>
+		                </form> 
                     </div>
                 </div>
             </div>
@@ -342,7 +342,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Edit Property Facility</h6>
-                            <form method="post" action="{{ route('update.propertie.facilities') }}" id="facilityForm" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('agent.update.propertie.facilities') }}" id="facilityForm" enctype="multipart/form-data">
                                 @csrf
                                 
                                 <input type="hidden" name="property_id" value="{{$property->id}}">
@@ -430,15 +430,28 @@
         </div>
     </div>
 
+   
+   
+
+   
+   
+   
+   
     <!-- Scripts for add/remove facility rows -->
     <script type="text/javascript">
         $(document).ready(function(){
             $(document).on("click",".addeventmore",function(){
-                var html = $(".whole_extra_item_add").first().html();
+                var html = $(".whole_extra_item_add").first().clone();
+
+                html.find("input").val("");
+                html.find("select").val("");
                 $(".add_item").append(html);
             });
             $(document).on("click",".removeeventmore",function(){
-                $(this).closest(".whole_extra_item_delete").remove();
+                // $(this).closest(".whole_extra_item_delete").remove();
+                 if ($(".whole_extra_item_delete").length > 1) {
+                   $(this).closest(".whole_extra_item_delete").remove();
+                 }
             });
         });
     </script>

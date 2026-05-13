@@ -287,72 +287,145 @@ class AgentPropertyController extends Controller
  
     
 
-  public function AgentUpdatePropertieMultiimage(Request $request)
+
+
+
+
+
+
+  public function AgentStoreNewMultiimage(Request $request)
   {
-    if ($request->hasFile('multi_img')) {
+    // Validation
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+        'multi_img' => 'required|array',
+        'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        foreach ($request->file('multi_img') as $id => $img) {
+    $property_id = $request->property_id;
 
-            // Find old image
-            $imgDel = MultiImage::findOrFail($id);
+    $manager = new ImageManager(new Driver());
+    $uploadPath = public_path('uploads/property/multi_image/');
 
-            // Delete old image file
-            if (file_exists(public_path($imgDel->photo_name))) {
-                unlink(public_path($imgDel->photo_name));
-            }
+    if (!file_exists($uploadPath)) {
+        mkdir($uploadPath, 0755, true);
+    }
 
-            // Generate new image name
-            $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+    foreach ($request->file('multi_img') as $img) {
 
-            // Upload path
-            $uploadPath = public_path('uploads/property/multi_image/');
-            if (!file_exists($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
-            }
+        $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
 
-            // Resize & save
-            $manager = new ImageManager(new Driver());
-            $manager->read($img)
-                ->resize(770, 520)
-                ->save($uploadPath . $name_gen);
+        $manager->read($img)
+            ->resize(770, 520)
+            ->save($uploadPath . $name_gen);
 
-            // Update DB
-            MultiImage::where('id', $id)->update([
-                'photo_name' => 'uploads/property/multi_image/' . $name_gen,
-                'updated_at' => Carbon::now(),
+        MultiImage::create([
+            'property_id' => $property_id,
+            'photo_name' => 'uploads/property/multi_image/' . $name_gen,
+            'created_at' => Carbon::now(),
+        ]);
+    }
+
+    $notification = [
+        'message' => 'New Property Images Added Successfully',
+        'alert-type' => 'success'
+    ];
+
+    return redirect()->back()->with($notification);
+  }
+
+   
+
+   
+   
+  
+//    public function AgentUpdatePropertieFacilities(Request $request)
+//    {
+      
+//       $request->validate([
+//         'property_id' => 'required|exists:properties,id',
+//         'facility_name' => 'nullable|array',
+//         'facility_name.*' => 'required|string|max:255',
+//         'distance' => 'nullable|array',
+//         'distance.*' => 'nullable|string',
+//       ]);
+
+//        $property_id = $request->property_id;
+
+//        // Supprimer les anciennes facilities
+//        Facility::where('property_id', $property_id)->delete();
+
+//         $facilities = $request->facility_name ?? [];
+
+//       // Réinsérer les nouvelles
+//       if ($request->facility_name) {
+       
+
+//         foreach ($facilities as $index => $facility) {
+//           if ($facility) {
+//               Facility::create([
+//                   'property_id' => $property_id,
+//                   'facility_name' => $facility,
+//                   'distance' => $request->distance[$index] ?? null,
+//               ]);
+//           }
+//         }
+      
+      
+//         //   foreach ($request->facility_name as $index => $facility) {
+//         //     Facility::create([
+//         //         'property_id'   => $property_id,
+//         //         'facility_name' => $facility,
+//         //         'distance'      => $request->distance[$index] ?? null,
+//         //     ]);
+//         //   }
+//       }
+
+//        return redirect()->back()->with([
+//         'message' => 'Property Facilities Updated Successfully',
+//         'alert-type' => 'success'
+//        ]);
+//     }
+
+
+  public function AgentUpdatePropertieFacilities(Request $request)
+  {
+    $request->validate([
+        'property_id' => 'required|exists:properties,id',
+        'facility_name' => 'nullable|array',
+        'facility_name.*' => 'nullable|string|max:255',
+        'distance' => 'nullable|array',
+        'distance.*' => 'nullable|string|max:255',
+    ]);
+
+    $property_id = $request->property_id;
+
+    // sécurisation : éviter delete si vide
+    if (!$request->facility_name) {
+        return back()->with([
+            'message' => 'No facilities provided',
+            'alert-type' => 'error'
+        ]);
+    }
+
+    Facility::where('property_id', $property_id)->delete();
+
+    foreach ($request->facility_name as $index => $facility) {
+
+        if (!empty($facility)) {
+            Facility::create([
+                'property_id' => $property_id,
+                'facility_name' => $facility,
+                'distance' => $request->distance[$index] ?? null,
             ]);
         }
     }
 
-    $notification = [
-        'message' => 'Property Multi Images Updated Successfully',
+    return back()->with([
+        'message' => 'Property Facilities Updated Successfully',
         'alert-type' => 'success'
-    ];
+    ]);
+ }
 
-    return redirect()->back()->with($notification);
-  }
-
-
-  public function AgentPropertieMultiimgDelete($id)
-  {
-    // Find image record
-    $multiImg = MultiImage::findOrFail($id);
-
-    // Delete image file from storage
-    if ($multiImg->photo_name && file_exists(public_path($multiImg->photo_name))) {
-        unlink(public_path($multiImg->photo_name));
-    }
-
-    // Delete DB record
-    $multiImg->delete();
-
-    $notification = [
-        'message' => 'Property Multi Image Deleted Successfully',
-        'alert-type' => 'success'
-    ];
-
-    return redirect()->back()->with($notification);
-  }
-
-
+   
 }

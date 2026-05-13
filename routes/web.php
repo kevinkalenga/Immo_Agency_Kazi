@@ -131,6 +131,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
            Route::post('/agent/update/property/thambnail', 'AgentUpdatePropertieThambnail')->name('agent.update.propertie.thambnail'); 
            Route::post('/agent/update/property/multiimage', 'AgentUpdatePropertieMultiimage')->name('agent.update.propertie.multiimage'); 
            Route::get('/agent/property/multiimg/delete/{id}', 'AgentPropertieMultiimgDelete')->name('agent.propertie.multiimg.delete'); 
+           Route::post('/agent/store/new/multiimage', 'AgentStoreNewMultiimage')->name('agent.store.new.multiimage'); 
+           Route::post('/agent/update/propertie/facilities', 'AgentUpdatePropertieFacilities')->name('agent.update.propertie.facilities'); 
    
          
         });
