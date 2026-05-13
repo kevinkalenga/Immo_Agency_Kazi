@@ -537,5 +537,43 @@ class AgentPropertyController extends Controller
             ->with($notification);
     }
 
+
+    public function BuyProfessionalPlan()
+    {
+        $id = Auth::user()->id;
+        $data = User::findOrFail($id);
+
+        return view('agent.package.professional_plan', compact('data'));
+    }
+
+
+    public function StoreProfessionalPlan(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::findOrFail($id);
+
+        PackagePlan::insert([
+
+            'user_id' => $id,
+            'package_name' => 'Professional',
+            'package_credits' => 8,
+            'invoice' => 'ERS' . mt_rand(10000000, 99999999),
+            'package_amount' => 70,
+            'created_at' => Carbon::now(),
+
+        ]);
+
+        $user->increment('credit', 8);
+
+        $notification = array(
+            'message' => 'You have purchased Professional Package Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()
+            ->route('agent.all.propertie')
+            ->with($notification);
+    }
+
    
 }
