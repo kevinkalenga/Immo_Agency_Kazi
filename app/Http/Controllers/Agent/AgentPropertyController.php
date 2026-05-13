@@ -427,5 +427,54 @@ class AgentPropertyController extends Controller
     ]);
  }
 
+  public function AgentDetailsProperty($id)
+  {
+      $facilities = Facility::where('property_id', $id)->get();
+      $property = Property::findOrFail($id);
+      
+      $type = $property->amenities_id;
+      $property_ami = explode(',', $type);
+            
+      $multiImage = MultiImage::where('property_id',$id)->get();
+      
+      $propertyType = PropertyType::latest()->get();
+      $amenities = Amenities::latest()->get();
+     
+
+       return view('agent.property.details_property', compact('property', 'propertyType', 'amenities', 'property_ami' ,'multiImage', 'facilities'));
+    
+  }
+
+
+    public function AgentDeletePropertie($id)
+    {
+        $property = Property::findOrFail($id);
+
+        // Supprimer thumbnail
+        if ($property->property_thambnail && file_exists(public_path($property->property_thambnail))) {
+            unlink(public_path($property->property_thambnail));
+        }
+
+        // Supprimer multi images
+        $multiImages = MultiImage::where('property_id', $id)->get();
+        foreach ($multiImages as $img) {
+            if ($img->photo_name && file_exists(public_path($img->photo_name))) {
+                unlink(public_path($img->photo_name));
+            }
+        }
+        MultiImage::where('property_id', $id)->delete();
+
+        // Supprimer facilities
+        Facility::where('property_id', $id)->delete();
+
+        // Supprimer la propriété
+        $property->delete();
+
+       return redirect()->back()->with([
+          'message' => 'Property Deleted Successfully',
+          'alert-type' => 'success'
+       ]);
+    }
+
    
 }
