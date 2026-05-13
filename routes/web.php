@@ -145,6 +145,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::controller(AgentPropertyController::class)->group(function(){
              Route::get('/buy/package', 'BuyPackage')->name('buy.package');
              Route::get('/buy/business/plan', 'BuyBusinessPlan')->name('buy.business.plan');
+             Route::post('/store/business/plan', 'StoreBusinessPlan')->name('store.business.plan');
         });
  });
 

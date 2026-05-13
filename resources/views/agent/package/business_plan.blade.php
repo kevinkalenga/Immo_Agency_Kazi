@@ -5,16 +5,12 @@
 @section('agent') 
 
 
+
 <div class="page-content">
 
   <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="#">Special pages</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        Invoice
-      </li>
+      
     </ol>
   </nav>
 
@@ -23,7 +19,8 @@
     <div class="col-md-12">
 
       <div class="card">
-
+       <form action="{{route('store.business.plan')}}" method="POST">
+        @csrf
         <div class="card-body">
 
           <div class="container-fluid d-flex justify-content-between">
@@ -49,9 +46,9 @@
               </h5>
 
               <p>
-                Joseph E Carr,<br>
-                102, 102 Crown Street,<br>
-                London, W3 3PR.
+                {{$data->name}},<br>
+                {{$data->email}},<br>
+                {{$data->address}}.
               </p>
 
             </div>
@@ -63,7 +60,7 @@
               </h4>
 
               <h6 class="text-end mb-5 pb-4">
-                # INV-002308
+                
               </h6>
 
               <p class="text-end mb-1">
@@ -71,18 +68,15 @@
               </p>
 
               <h4 class="text-end fw-normal">
-                $ 72,420.00
+                $ 40
               </h4>
 
               <h6 class="mb-0 mt-3 text-end fw-normal mb-2">
-                <span class="text-muted">Invoice Date :</span>
-                25rd Jan 2022
+                <span class="text-muted"></span>
+                
               </h6>
 
-              <h6 class="text-end fw-normal">
-                <span class="text-muted">Due Date :</span>
-                12th Jul 2022
-              </h6>
+              
 
             </div>
 
@@ -97,8 +91,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Description</th>
-                    <th class="text-end">Quantity</th>
+                    <th>Package Name</th>
+                    <th class="text-end">Property Qty</th>
                     <th class="text-end">Unit cost</th>
                     <th class="text-end">Total</th>
                   </tr>
@@ -108,35 +102,13 @@
 
                   <tr class="text-end">
                     <td class="text-start">1</td>
-                    <td class="text-start">PSD to html conversion</td>
-                    <td>02</td>
-                    <td>$55</td>
-                    <td>$110</td>
+                    <td class="text-start">Business</td>
+                    <td>4</td>
+                    <td>$40</td>
+                    <td>$40</td>
                   </tr>
 
-                  <tr class="text-end">
-                    <td class="text-start">2</td>
-                    <td class="text-start">Package design</td>
-                    <td>08</td>
-                    <td>$34</td>
-                    <td>$272</td>
-                  </tr>
-
-                  <tr class="text-end">
-                    <td class="text-start">3</td>
-                    <td class="text-start">Html template development</td>
-                    <td>03</td>
-                    <td>$500</td>
-                    <td>$1500</td>
-                  </tr>
-
-                  <tr class="text-end">
-                    <td class="text-start">4</td>
-                    <td class="text-start">Redesign</td>
-                    <td>01</td>
-                    <td>$30</td>
-                    <td>$30</td>
-                  </tr>
+                
 
                 </tbody>
 
@@ -160,25 +132,22 @@
 
                       <tr>
                         <td>Sub Total</td>
-                        <td class="text-end">$ 14,900.00</td>
+                        <td class="text-end">$ 40</td>
                       </tr>
 
-                      <tr>
-                        <td>TAX (12%)</td>
-                        <td class="text-end">$ 1,788.00</td>
-                      </tr>
+                      
 
                       <tr>
                         <td class="text-bold-800">Total</td>
                         <td class="text-bold-800 text-end">
-                          $ 16,688.00
+                          $ 40
                         </td>
                       </tr>
 
                       <tr>
                         <td>Payment Made</td>
                         <td class="text-danger text-end">
-                          (-) $ 4,688.00
+                          (-) $ 40
                         </td>
                       </tr>
 
@@ -187,7 +156,7 @@
                           Balance Due
                         </td>
                         <td class="text-bold-800 text-end">
-                          $ 12,000.00
+                          $ 40
                         </td>
                       </tr>
 
@@ -205,20 +174,17 @@
 
           <div class="container-fluid w-100">
 
-            <a href="javascript:;" class="btn btn-primary float-end mt-4 ms-2">
+            <button type="submit" class="btn btn-primary float-end mt-4 ms-2">
               <i data-feather="send" class="me-3 icon-md"></i>
               Send Invoice
-            </a>
+            </button>
 
-            <a href="javascript:;" class="btn btn-outline-primary float-end mt-4">
-              <i data-feather="printer" class="me-2 icon-md"></i>
-              Print
-            </a>
+        
 
           </div>
 
         </div>
-
+       </form>
       </div>
 
     </div>

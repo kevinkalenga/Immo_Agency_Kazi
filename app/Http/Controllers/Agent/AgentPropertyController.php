@@ -500,8 +500,17 @@ class AgentPropertyController extends Controller
     }
     public function BuyBusinessPlan()
     {
-        $id = Auth::user()->id;
-        return view('agent.package.business_plan', compact('id'));
+       
+        $id = Auth::user()->id; 
+        $data = User::find($id);
+
+
+        return view('agent.package.business_plan', compact('data'));
+    }
+
+    public function StoreBusinessPlan(Request $request)
+    {
+       
     }
 
    
