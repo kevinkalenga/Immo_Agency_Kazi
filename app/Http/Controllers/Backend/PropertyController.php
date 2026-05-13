@@ -8,6 +8,7 @@ use App\Models\Property;
 use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Amenities;
+use App\Models\PackagePlan;
 use App\Models\User;
 use App\Models\MultiImage;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -511,7 +513,14 @@ class PropertyController extends Controller
 
     }
 
+    
+    public function AdminPackageHistory(){
 
+     $packagehistory = PackagePlan::latest()->get();
+     return view('backend.package.package_history',compact('packagehistory'));
+
+
+    }
 
 
 
