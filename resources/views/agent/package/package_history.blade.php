@@ -58,7 +58,7 @@
 
                                     <td>
                                         <a
-                                            href="{{ route('agent.edit.propertie',$item->id) }}"
+                                            href="{{ route('agent.package.invoice',$item->id) }}"
                                             class="btn btn-inverse-warning"
                                             title="Download"
                                         >

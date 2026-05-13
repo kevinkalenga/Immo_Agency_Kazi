@@ -16,6 +16,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Auth;
 use DB;
 
@@ -581,6 +582,23 @@ class AgentPropertyController extends Controller
         $packagehistory = PackagePlan::where('user_id',$id)->get();
         return view('agent.package.package_history',compact('packagehistory'));
 
+    }
+
+    public function AgentPackageInvoice($id)
+    {
+        $packagehistory = PackagePlan::where('id', $id)->firstOrFail();
+
+        $pdf = Pdf::loadView(
+            'agent.package.package_history_invoice',
+            compact('packagehistory')
+        )
+        ->setPaper('a4')
+        ->setOptions([
+            'tempDir' => public_path(),
+            'chroot'  => public_path(),
+        ]);
+
+        return $pdf->download('invoice.pdf');
     }
 
    
