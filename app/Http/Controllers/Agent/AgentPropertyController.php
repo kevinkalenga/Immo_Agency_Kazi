@@ -10,6 +10,7 @@ use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
 use App\Models\MultiImage;
+use App\Models\PackagePlan;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -41,7 +42,7 @@ class AgentPropertyController extends Controller
       $pCount = $property->credit;
       //dd($pCount);
 
-      if($pCount == 1) {
+      if($pCount == 1 || $pCount == 8) {
         return redirect()->route('buy.package');
       } else {
         return view('agent.property.add_property', compact('propertyType', 'amenities'));
@@ -510,7 +511,30 @@ class AgentPropertyController extends Controller
 
     public function StoreBusinessPlan(Request $request)
     {
-       
+        $id = Auth::user()->id;
+        $user = User::findOrFail($id);
+
+        PackagePlan::insert([
+
+            'user_id' => $id,
+            'package_name' => 'Business',
+            'package_credits' => 4,
+            'invoice' => 'ERS' . mt_rand(10000000, 99999999),
+            'package_amount' => 40,
+            'created_at' => Carbon::now(),
+
+        ]);
+
+        $user->increment('credit', 4);
+
+        $notification = array(
+            'message' => 'You have purchased Business Package Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()
+            ->route('agent.all.propertie')
+            ->with($notification);
     }
 
    
