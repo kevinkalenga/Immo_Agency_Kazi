@@ -575,5 +575,13 @@ class AgentPropertyController extends Controller
             ->with($notification);
     }
 
+    public function PackageHistory(){
+
+        $id = Auth::user()->id;
+        $packagehistory = PackagePlan::where('user_id',$id)->get();
+        return view('agent.package.package_history',compact('packagehistory'));
+
+    }
+
    
 }
