@@ -22,7 +22,9 @@ class IndexController extends Controller
         $property_amen = explode(',', $amenities);
         $multiImage = MultiImage::where('property_id', $id)->get();
         $facility = Facility::where('property_id', $id)->get();
+        $type_id = $property->ptype_id;
+        $relatedProperty = Property::where('ptype_id', $type_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(3)->get();
         
-        return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility'));
+        return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
     }
 }
