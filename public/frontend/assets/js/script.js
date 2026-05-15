@@ -607,9 +607,9 @@
 
 	// Time picker
 	function timepicker () {
-	    if ($('input[name="time"]').length) {
-	        $('input[name="time"]').ptTimeSelect();
-	    }
+	    // if ($('input[name="time"]').length) {
+	    //     $('input[name="time"]').ptTimeSelect();
+	    // }
 	}
 
 

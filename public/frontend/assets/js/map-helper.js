@@ -101,11 +101,13 @@ function gMap () {
             };
             // init map
             var map;
+            console.log("LAT =", mapLat);
+            console.log("LNG =", mapLng);
             map = new GMaps({
                 div: '#'+mapName,
                 scrollwheel: false,
-                lat: mapLat,
-                lng: mapLng,                
+                lat: parseFloat(mapLat) || 48.8566,
+                lng: parseFloat(mapLng) || 2.3522,                
                 styles: styles,
                 zoom: mapZoom
             });
@@ -113,16 +115,11 @@ function gMap () {
             if(iconPath) {
                 map.addMarker({
                     icon: iconPath,
-                    lat: mapLat,
-                    lng: mapLng,
+                    lat: parseFloat(mapLat) || 48.8566,
+                    lng: parseFloat(mapLng) || 2.3522,
                     title: mapTitle
                 });
-                map.addMarker({
-                    icon: iconPath,
-                    lat: 40.700843,         //you can
-                    lng: 40.700843,
-                    title: "New York"
-                });
+               
             }
         });  
     };

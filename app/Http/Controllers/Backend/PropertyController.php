@@ -38,6 +38,7 @@ class PropertyController extends Controller
 
     public function StorePropertie(Request $request)
     {
+        
         // Validate request inputs
         $request->validate([
             'property_thambnail' => 'required|image|mimes:jpg,jpeg,png|max:2048',
