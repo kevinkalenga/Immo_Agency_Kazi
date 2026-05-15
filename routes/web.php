@@ -9,6 +9,8 @@ use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Agent\AgentPropertyController;
 
+use App\Http\Controllers\Frontend\IndexController;
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -155,6 +157,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         });
  });
 
+
+//  Frontend Property Details All Route 
+
+Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDetails']);
 
 
 
