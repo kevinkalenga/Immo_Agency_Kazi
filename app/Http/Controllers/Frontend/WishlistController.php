@@ -8,11 +8,29 @@ use App\Models\Property;
 use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Wishlist;
+use Carbon\Carbon;
+use Auth;
 
 class WishlistController extends Controller
 {
     public function AddToWishlist(Request $request, $property_id)
     {
+        if(Auth::check()) {
+         $exists = Wishlist::where('user_id', Auth::id())->where('property_id', $property_id)->first();
 
+            if(!$exists) {
+                Wishlist::insert([
+                    'user_id' => Auth::id(),
+                    'property_id' => $property_id,
+                    'created_at' => Carbon::now()
+                ]);
+
+                return response()->json(['success' => 'Property has been added in you wishlist']);
+            } else {
+                return response()->json(['error' => 'Property has already been added in you wishlist']);
+            }
+        } else {
+            return response()->json(['error' => 'You must be login before adding the property in the wishlist']);
+        }
     }
 }
