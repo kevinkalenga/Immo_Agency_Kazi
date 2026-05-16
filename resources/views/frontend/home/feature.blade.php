@@ -38,7 +38,7 @@
                                             @endif
                                            
                                         </div>
-                                        <div class="buy-btn pull-right"><a href="property-details.html">{{$item->property_status}}</a></div>
+                                        <div class="buy-btn pull-right"><a href="property-details.html">For {{$item->property_status}}</a></div>
                                     </div>
                                     <div class="title-text"><h4><a href="property-details.html">{{$item->property_name}}</a></h4></div>
                                     <div class="price-box clearfix">

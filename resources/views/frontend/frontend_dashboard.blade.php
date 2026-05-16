@@ -243,8 +243,8 @@
                                             <ul class="other-option pull-right clearfix">
                                                
                                                 <li>
-                                                    <a href="/property/details/${value.property.id}/${value.property.property_slug}">
-                                                        <i class="icon-13"></i>
+                                                    <a href="javascript:void(0);" class="text-body" onclick="wishlistRemove(${value.id})">
+                                                      <i class="fa fa-trash"></i>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -271,6 +271,42 @@
         })
     }
 
+    
+    function wishlistRemove(id){
+        $.ajax({
+            type: "POST",
+            url: "/wishlist-remove/" + id,
+            dataType: 'json',
+            success: function(data){
+                wishlist();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                if (!data.error) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success
+                    });
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
+                }
+            },
+            error: function(xhr){
+                console.log(xhr.responseText);
+            }
+        });
+    }
+    
+    
+    
     $(document).ready(function(){
       wishlist();
     });

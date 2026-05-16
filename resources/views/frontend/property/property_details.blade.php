@@ -55,7 +55,7 @@
                         <div class="price-inner clearfix">
                             <ul class="category clearfix pull-left">
                                 <li><a href="property-details.html">{{$property->type->type_name}}</a></li>
-                                <li><a href="property-details.html">{{$property->property_status}}</a></li>
+                                <li><a href="property-details.html">FOR {{$property->property_status}}</a></li>
                             </ul>
                             <div class="price-box pull-right">
                                 <h3>${{$property->lowest_price}}</h3>
@@ -98,7 +98,7 @@
                         
                                     <li>Property Type: <span>{{$property->type->type_name}}</span></li>
                                     <li>Bathrooms: <span>{{$property->bathrooms}}</span></li>
-                                    <li>Property Status: <span>{{$property->property_status}}</span></li>
+                                    <li>Property Status: <span>For {{$property->property_status}}</span></li>
                                     <li>Property Size: <span>{{$property->property_size}}</span></li>
                                     <li>Garage: <span>{{$property->garage}}</span></li>
                                 </ul>
@@ -344,7 +344,7 @@
                                                   <h6>{{$item->user->name}}</h6>
                                                 @endif
                                             </div>
-                                            <div class="buy-btn pull-right"><a href="{{url('property/details/'.$item->id.'/'.$item->property_slug)}}">{{$item->property_status}}</a></div>
+                                            <div class="buy-btn pull-right"><a href="{{url('property/details/'.$item->id.'/'.$item->property_slug)}}">FOR {{$item->property_status}}</a></div>
                                         </div>
                                         <div class="title-text"><h4><a href="{{url('property/details/'.$item->id.'/'.$item->property_slug)}}">{{$item->property_name}}</a></h4></div>
                                         <div class="price-box clearfix">
