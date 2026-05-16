@@ -11,5 +11,8 @@ use App\Models\Wishlist;
 
 class WishlistController extends Controller
 {
-    //
+    public function AddToWishlist(Request $request, $property_id)
+    {
+
+    }
 }
