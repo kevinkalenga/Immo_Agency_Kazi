@@ -49,9 +49,9 @@
                     <div class="post-inner">
                         <div class="post">
                             <figure class="post-thumb"><a href="blog-details.html">
-       <img id="sidebarImage" src="{{(!empty($userData->photo)) ? url('uploads/user_images/'.$userData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80"></a></figure>
-        <h5><a href="blog-details.html">{{$userData->name}} </a></h5>
-         <p>{{$userData->email}} </p>
+                            <img id="sidebarImage" src="{{(!empty($userData->photo)) ? url('uploads/user_images/'.$userData->photo) : url('uploads/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80"></a></figure>
+                             <h5><a href="blog-details.html">{{$userData->name}} </a></h5>
+                              <p>{{$userData->email}} </p>
                         </div> 
                     </div>
                 </div> 

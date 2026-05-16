@@ -8,8 +8,10 @@ use App\Models\Property;
 use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Wishlist;
+use App\Models\User;
 use Carbon\Carbon;
 use Auth;
+
 
 class WishlistController extends Controller
 {
@@ -32,5 +34,13 @@ class WishlistController extends Controller
         } else {
             return response()->json(['error' => 'You must be login before adding the property in the wishlist']);
         }
+    }
+
+    public function UserWishlist()
+    {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+
+        return view('frontend.dashboard.wishlist', compact('userData'));
     }
 }
