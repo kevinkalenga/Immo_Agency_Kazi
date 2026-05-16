@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Wishlist extends Model
 {
      protected $guarded = [];
+     
+     // One wishlist belongs to a property
+     public function propertype() {
+          return $this->belongsTo(Property::class, 'property_id', 'id');
+     }
 }
