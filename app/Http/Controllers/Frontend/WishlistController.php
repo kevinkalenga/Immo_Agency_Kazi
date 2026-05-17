@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Property;
-use App\Models\Facility;
-use App\Models\PropertyType;
 use App\Models\Wishlist;
 use App\Models\User;
 use Carbon\Carbon;
@@ -27,9 +24,9 @@ class WishlistController extends Controller
                     'created_at' => Carbon::now()
                 ]);
 
-                return response()->json(['success' => 'Property has been added in you wishlist']);
+                return response()->json(['success' => 'Property has been added in your wishlist']);
             } else {
-                return response()->json(['error' => 'Property has already been added in you wishlist']);
+                return response()->json(['error' => 'Property has already been added in your wishlist']);
             }
         } else {
             return response()->json(['error' => 'You must be login before adding the property in the wishlist']);
