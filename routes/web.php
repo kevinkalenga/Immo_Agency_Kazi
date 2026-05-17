@@ -32,11 +32,17 @@ Route::middleware('auth')->group(function () {
      Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
      Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
 
-      // User Wishlist All Route
+     // User Wishlist All Route
     Route::controller(WishlistController::class)->group(function(){
          Route::get('/user/wishlist', 'UserWishlist')->name('user.wishlist');
          Route::get('/get-wishlist-property', 'GetWishlistProperty');
          Route::post('/wishlist-remove/{id}', 'WishlistRemove');  
+        
+    });
+     // User Comparelist All Route
+    Route::controller(CompareController::class)->group(function(){
+         Route::get('/user/compare', 'UserCompare')->name('user.compare');
+        
         
     });
 });

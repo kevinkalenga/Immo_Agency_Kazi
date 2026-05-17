@@ -32,4 +32,11 @@ class CompareController extends Controller
             return response()->json(['error' => 'You must be login before adding the property your compare list']);
         }
     }
+
+    public function UserCompare()
+    {
+       
+
+        return view('frontend.dashboard.compare');
+    }
 }
