@@ -64,7 +64,7 @@
                         <ul class="other-option pull-right clearfix">
                             <li><a href="property-details.html"><i class="icon-37"></i></a></li>
                             <li><a href="property-details.html"><i class="icon-38"></i></a></li>
-                            <li><a href="property-details.html"><i class="icon-12"></i></a></li>
+                            <li><a aria-label="Compare" class="action-btn" id="{{$property->id}}" onclick="addToCompare(this.id)"><i class="icon-12"></i></a></li>
                             <li><a aria-label="Add To Wishlist" class="action-btn" id="{{$property->id}}" onclick="addToWishlist(this.id)"><i class="icon-13"></i></a></li>
                         </ul>
                     </div>
