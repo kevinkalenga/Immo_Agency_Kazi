@@ -427,6 +427,19 @@
                         </td>
                         
                     </tr>
+                    <tr>
+                        <td>
+                            <p>Action</p>
+                        </td>
+                        <td>
+                            <p>
+                              <a href="javascript:void(0);" class="text-body" onclick="compareRemove(${value.id})">
+                                                      <i class="fa fa-trash"></i>
+                              </a>
+                            </p>
+                        </td>
+                        
+                    </tr>
                         
                   
                   
@@ -444,7 +457,39 @@
     }
 
     
-  
+   function compareRemove(id){
+        $.ajax({
+            type: "POST",
+            url: "/compare-remove/" + id,
+            dataType: 'json',
+            success: function(data){
+               compare();
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                if (!data.error) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.success
+                    });
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.error
+                    });
+                }
+            },
+            error: function(xhr){
+                console.log(xhr.responseText);
+            }
+        });
+    }
+    
     
     
     
