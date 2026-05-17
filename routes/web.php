@@ -181,5 +181,8 @@ Route::get('/property/details/{id}/{slug}', [IndexController::class, 'PropertyDe
 Route::post('/add-to-wishlist/{property_id}', [WishlistController::class, 'AddToWishlist']);
 Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCompare']);
 
+// Send message from property detail page
+Route::post('/property/message', [IndexController::class, 'PropertyMessage'])->name('property.message');
+
 
 

@@ -11,6 +11,7 @@ use App\Models\Amenities;
 use App\Models\PackagePlan;
 use App\Models\User;
 use App\Models\MultiImage;
+use App\Models\PropertyMessage;
 
 
 class IndexController extends Controller
@@ -26,5 +27,9 @@ class IndexController extends Controller
         $relatedProperty = Property::where('ptype_id', $type_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(3)->get();
         
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
+    }
+    public function PropertyMessage($Request, $request)
+    {
+        
     }
 }
