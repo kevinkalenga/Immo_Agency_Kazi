@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
+use App\Models\PropertyMessage;
 use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Amenities;
@@ -539,6 +540,19 @@ class PropertyController extends Controller
         ]);
 
         return $pdf->download('invoice.pdf');
+    }
+
+    public function AdminPropertieMessage()
+    {
+       
+        $userMsg = PropertyMessage::latest()->get();
+
+        return view('backend.message.all_message', compact('userMsg'));
+    }
+    public function AdminMessageDetails()
+    {
+       
+       
     }
 
 
