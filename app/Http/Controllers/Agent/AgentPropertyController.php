@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
+use App\Models\PropertyMessage;
 use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Amenities;
@@ -215,14 +216,14 @@ class AgentPropertyController extends Controller
     public function AgentUpdatePropertie(Request $request, $id)
     {
       
-       $request->validate([
-        'ptype_id' => 'required|exists:property_types,id',
-        'property_name' => 'required|string|max:255',
-        'property_status' => 'required|string',
-        'lowest_price' => 'required|numeric',
-        'max_price' => 'required|numeric',
-          // … autres champs nécessaires
-    ]);
+        $request->validate([
+            'ptype_id' => 'required|exists:property_types,id',
+            'property_name' => 'required|string|max:255',
+            'property_status' => 'required|string',
+            'lowest_price' => 'required|numeric',
+            'max_price' => 'required|numeric',
+            // … autres champs nécessaires
+        ]);
     
     
        // dd('UPDATE ROUTE TOUCHED');
@@ -313,142 +314,95 @@ class AgentPropertyController extends Controller
 
 
 
-  public function AgentStoreNewMultiimage(Request $request)
-  {
-    // Validation
-    $request->validate([
-        'property_id' => 'required|exists:properties,id',
-        'multi_img' => 'required|array',
-        'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-    ]);
-
-    $property_id = $request->property_id;
-
-    $manager = new ImageManager(new Driver());
-    $uploadPath = public_path('uploads/property/multi_image/');
-
-    if (!file_exists($uploadPath)) {
-        mkdir($uploadPath, 0755, true);
-    }
-
-    foreach ($request->file('multi_img') as $img) {
-
-        $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
-
-        $manager->read($img)
-            ->resize(770, 520)
-            ->save($uploadPath . $name_gen);
-
-        MultiImage::create([
-            'property_id' => $property_id,
-            'photo_name' => 'uploads/property/multi_image/' . $name_gen,
-            'created_at' => Carbon::now(),
+    public function AgentStoreNewMultiimage(Request $request)
+    {
+        // Validation
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'multi_img' => 'required|array',
+            'multi_img.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        $property_id = $request->property_id;
+
+        $manager = new ImageManager(new Driver());
+        $uploadPath = public_path('uploads/property/multi_image/');
+
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        foreach ($request->file('multi_img') as $img) {
+
+            $name_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+
+            $manager->read($img)
+                ->resize(770, 520)
+                ->save($uploadPath . $name_gen);
+
+            MultiImage::create([
+                'property_id' => $property_id,
+                'photo_name' => 'uploads/property/multi_image/' . $name_gen,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+        $notification = [
+            'message' => 'New Property Images Added Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
     }
-
-    $notification = [
-        'message' => 'New Property Images Added Successfully',
-        'alert-type' => 'success'
-    ];
-
-    return redirect()->back()->with($notification);
-  }
 
    
 
    
    
   
-//    public function AgentUpdatePropertieFacilities(Request $request)
-//    {
-      
-//       $request->validate([
-//         'property_id' => 'required|exists:properties,id',
-//         'facility_name' => 'nullable|array',
-//         'facility_name.*' => 'required|string|max:255',
-//         'distance' => 'nullable|array',
-//         'distance.*' => 'nullable|string',
-//       ]);
-
-//        $property_id = $request->property_id;
-
-//        // Supprimer les anciennes facilities
-//        Facility::where('property_id', $property_id)->delete();
-
-//         $facilities = $request->facility_name ?? [];
-
-//       // Réinsérer les nouvelles
-//       if ($request->facility_name) {
-       
-
-//         foreach ($facilities as $index => $facility) {
-//           if ($facility) {
-//               Facility::create([
-//                   'property_id' => $property_id,
-//                   'facility_name' => $facility,
-//                   'distance' => $request->distance[$index] ?? null,
-//               ]);
-//           }
-//         }
-      
-      
-//         //   foreach ($request->facility_name as $index => $facility) {
-//         //     Facility::create([
-//         //         'property_id'   => $property_id,
-//         //         'facility_name' => $facility,
-//         //         'distance'      => $request->distance[$index] ?? null,
-//         //     ]);
-//         //   }
-//       }
-
-//        return redirect()->back()->with([
-//         'message' => 'Property Facilities Updated Successfully',
-//         'alert-type' => 'success'
-//        ]);
-//     }
 
 
-  public function AgentUpdatePropertieFacilities(Request $request)
-  {
-    $request->validate([
-        'property_id' => 'required|exists:properties,id',
-        'facility_name' => 'nullable|array',
-        'facility_name.*' => 'nullable|string|max:255',
-        'distance' => 'nullable|array',
-        'distance.*' => 'nullable|string|max:255',
-    ]);
+    public function AgentUpdatePropertieFacilities(Request $request)
+    {
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'facility_name' => 'nullable|array',
+            'facility_name.*' => 'nullable|string|max:255',
+            'distance' => 'nullable|array',
+            'distance.*' => 'nullable|string|max:255',
+        ]);
 
-    $property_id = $request->property_id;
+        $property_id = $request->property_id;
 
-    // sécurisation : éviter delete si vide
-    if (!$request->facility_name) {
+        // sécurisation : éviter delete si vide
+        if (!$request->facility_name) {
+            return back()->with([
+                'message' => 'No facilities provided',
+                'alert-type' => 'error'
+            ]);
+        }
+
+        Facility::where('property_id', $property_id)->delete();
+
+        foreach ($request->facility_name as $index => $facility) {
+
+            if (!empty($facility)) {
+                Facility::create([
+                    'property_id' => $property_id,
+                    'facility_name' => $facility,
+                    'distance' => $request->distance[$index] ?? null,
+                ]);
+            }
+        }
+
         return back()->with([
-            'message' => 'No facilities provided',
-            'alert-type' => 'error'
+            'message' => 'Property Facilities Updated Successfully',
+            'alert-type' => 'success'
         ]);
     }
 
-    Facility::where('property_id', $property_id)->delete();
-
-    foreach ($request->facility_name as $index => $facility) {
-
-        if (!empty($facility)) {
-            Facility::create([
-                'property_id' => $property_id,
-                'facility_name' => $facility,
-                'distance' => $request->distance[$index] ?? null,
-            ]);
-        }
-    }
-
-    return back()->with([
-        'message' => 'Property Facilities Updated Successfully',
-        'alert-type' => 'success'
-    ]);
- }
-
-  public function AgentDetailsProperty($id)
-  {
+    public function AgentDetailsProperty($id)
+    {
       $facilities = Facility::where('property_id', $id)->get();
       $property = Property::findOrFail($id);
       
@@ -463,7 +417,7 @@ class AgentPropertyController extends Controller
 
        return view('agent.property.details_property', compact('property', 'propertyType', 'amenities', 'property_ami' ,'multiImage', 'facilities'));
     
-  }
+    }
 
 
     public function AgentDeletePropertie($id)
@@ -599,6 +553,15 @@ class AgentPropertyController extends Controller
         ]);
 
         return $pdf->download('invoice.pdf');
+    }
+    public function AgentPropertieMessage()
+    {
+        // user auth id
+        $id = Auth::user()->id;
+        // when this will match
+        $userMsg = PropertyMessage::where('agent_id', $id)->get();
+
+        return view('agent.message.all_message', compact('userMsg'));
     }
 
    

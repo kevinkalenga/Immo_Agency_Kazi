@@ -37,32 +37,32 @@ class IndexController extends Controller
 
         if (Auth::check()) {
             
-        PropertyMessage::insert([
+            PropertyMessage::insert([
 
-            'user_id' => Auth::user()->id,
-            'agent_id' => $aId,
-            'property_id' => $pId,
-            'msg_name' => $request->msg_name,
-            'msg_email' => $request->msg_email,
-            'msg_phone' => $request->msg_phone,
-            'message' => $request->message,
-            'created_at' => Carbon::now(), 
+                'user_id' => Auth::user()->id,
+                'agent_id' => $aId,
+                'property_id' => $pId,
+                'msg_name' => $request->msg_name,
+                'msg_email' => $request->msg_email,
+                'msg_phone' => $request->msg_phone,
+                'message' => $request->message,
+                'created_at' => Carbon::now(), 
 
-        ]);
+            ]);
 
-        $notification = array(
-            'message' => 'Send Message Successfully',
-            'alert-type' => 'success'
-        );
+            $notification = array(
+                'message' => 'Send Message Successfully',
+                'alert-type' => 'success'
+            );
 
-        return redirect()->back()->with($notification);
+           return redirect()->back()->with($notification);
 
 
 
         }else{
 
             $notification = array(
-            'message' => 'Plz Login Your Account First',
+            'message' => 'Please Login first in order to send the message',
             'alert-type' => 'error'
         );
 
