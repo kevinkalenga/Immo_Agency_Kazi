@@ -189,5 +189,8 @@ Route::post('/add-to-compare/{property_id}', [CompareController::class, 'AddToCo
 // Send message from property detail page
 Route::post('/property/message', [IndexController::class, 'PropertyMessage'])->name('property.message');
 
+// Agent detail page
+Route::get('/agent/detail/{id}', [IndexController::class, 'AgentDetail'])->name('agent.details');
+
 
 

@@ -20,7 +20,7 @@
                                 <figure class="image-box"><img src="{{(!empty($item->photo)) ? url('uploads/agent_images/'.$item->photo) : url('uploads/no_image.jpg')}}" alt="" style="width:370px; height:370px;"></figure>
                                 <div class="lower-content">
                                     <div class="inner">
-                                        <h4><a href="agents-details.html">{{$item->name}}</a></h4>
+                                        <h4><a href="{{route('agent.details', $item->id)}}">{{$item->name}}</a></h4>
                                         <span class="designation">{{$item->email}}</span>
                                         <ul class="social-links clearfix">
                                             <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
