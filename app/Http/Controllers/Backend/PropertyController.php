@@ -549,9 +549,18 @@ class PropertyController extends Controller
 
         return view('backend.message.all_message', compact('userMsg'));
     }
-    public function AdminMessageDetails()
+    public function AdminMessageDetails($id)
     {
-       
+         // Tous les messages pour la sidebar/liste
+        $userMsg = PropertyMessage::latest()->get();
+
+        // Message cliqué
+        $msgDetails = PropertyMessage::findOrFail($id);
+
+        return view(
+            'backend.message.message_detail',
+            compact('userMsg', 'msgDetails')
+        );
        
     }
 
