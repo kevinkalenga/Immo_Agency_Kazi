@@ -158,6 +158,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
            Route::get('/agent/details/propertie/{id}', 'AgentDetailsProperty')->name('agent.details.propertie');
            Route::get('/agent/delete/propertie/{id}', 'AgentDeletePropertie')->name('agent.delete.propertie'); 
            Route::get('/agent/propertie/message', 'AgentPropertieMessage')->name('agent.propertie.message'); 
+           Route::get('/agent/message/details/{id}', 'AgentMessageDetails')->name('agent.message.details'); 
 
           
    
