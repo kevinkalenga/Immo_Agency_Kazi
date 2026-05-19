@@ -74,6 +74,8 @@ class IndexController extends Controller
     {
       $agent = User::findOrFail($id);
 
-      return view('frontend.agent.agent_details', compact('agent'));
+      $property = Property::where('agent_id', $id)->get();
+
+      return view('frontend.agent.agent_details', compact('agent', 'property'));
     }
 }
