@@ -192,5 +192,9 @@ Route::post('/property/message', [IndexController::class, 'PropertyMessage'])->n
 // Agent detail page
 Route::get('/agent/detail/{id}', [IndexController::class, 'AgentDetail'])->name('agent.details');
 
+// Send message from agent detail page
+Route::post('/agent/details/message', [IndexController::class, 'AgentDetailsMessage'])->name('agent.details.message');
+
+
 
 

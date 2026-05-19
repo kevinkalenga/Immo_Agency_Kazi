@@ -80,4 +80,44 @@ class IndexController extends Controller
 
       return view('frontend.agent.agent_details', compact('agent', 'property', 'featured'));
     }
+
+
+    public function AgentDetailsMessage(Request $request)
+    {
+       
+        $aId = $request->agent_id;
+
+        if (Auth::check()) {
+            
+            PropertyMessage::insert([
+
+                'user_id' => Auth::user()->id,
+                'agent_id' => $aId,
+                'msg_name' => $request->msg_name,
+                'msg_email' => $request->msg_email,
+                'msg_phone' => $request->msg_phone,
+                'message' => $request->message,
+                'created_at' => Carbon::now(), 
+
+            ]);
+
+            $notification = array(
+                'message' => 'Send Message Successfully',
+                'alert-type' => 'success'
+            );
+
+           return redirect()->back()->with($notification);
+
+
+
+        }else{
+
+            $notification = array(
+            'message' => 'Please Login first in order to send the message',
+            'alert-type' => 'error'
+        );
+
+        return redirect()->back()->with($notification);
+        }
+    }
 }
