@@ -78,7 +78,12 @@ class IndexController extends Controller
       
       $featured = Property::where('featured', '1')->limit(3)->get();
 
-      return view('frontend.agent.agent_details', compact('agent', 'property', 'featured'));
+      $rentProperty = Property::where('property_status', 'rent')->get();
+
+
+      $buyProperty = Property::where('property_status', 'buy')->get();
+
+      return view('frontend.agent.agent_details', compact('agent', 'property', 'featured', 'rentProperty', 'buyProperty'));
     }
 
 
@@ -119,5 +124,14 @@ class IndexController extends Controller
 
         return redirect()->back()->with($notification);
         }
+    }
+
+    public function RentProperty()
+    {
+        $property = Property::where('status', '1')->where('property_status', 'rent')->get();
+
+        
+      return view('frontend.property.rent_property', compact('property'));
+
     }
 }

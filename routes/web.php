@@ -195,6 +195,9 @@ Route::get('/agent/detail/{id}', [IndexController::class, 'AgentDetail'])->name(
 // Send message from agent detail page
 Route::post('/agent/details/message', [IndexController::class, 'AgentDetailsMessage'])->name('agent.details.message');
 
+// Get all rent properties
+Route::get('/rent/property', [IndexController::class, 'RentProperty'])->name('rent.property');
+
 
 
 
