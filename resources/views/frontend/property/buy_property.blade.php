@@ -13,10 +13,10 @@
             </div>
             <div class="auto-container">
                 <div class="content-box clearfix">
-                    <h1>Rent Property</h1>
+                    <h1>Buy Property</h1>
                     <ul class="bread-crumb clearfix">
                         <li><a href="{{route('home')}}">Home</a></li>
-                        <li>Rent Property List</li>
+                        <li>Buy Property List</li>
                     </ul>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                                     <h5>Status Of Property</h5>
                                 </div>
                                 <ul class="category-list clearfix">
-                                   <li><a href="{{route('rent.property')}}">For Rent <span>({{count($rProperty)}})</span></a></li>
+                                    <li><a href="{{route('rent.property')}}">For Rent <span>({{count($rProperty)}})</span></a></li>
                                     <li><a href="{{route('buy.property')}}">For Buy <span>({{count($bProperty)}})</span></a></li>
                                 </ul>
                             </div>
@@ -120,7 +120,7 @@
                         <div class="property-content-side">
                             <div class="item-shorting clearfix">
                                 <div class="left-column pull-left">
-                                    <h5>Search Reasults: <span>Showing {{count($rProperty)}} Listings</span></h5>
+                                    <h5>Search Reasults: <span>Showing {{count($bProperty)}} Listings</span></h5>
                                 </div>
                                 <div class="right-column pull-right clearfix">
                                 
@@ -130,7 +130,7 @@
                             <div class="wrapper list">
                                 <div class="deals-list-content list-item">
                                  
-                                        @foreach($rProperty as $item)
+                                        @foreach($bProperty as $item)
                                             <div class="deals-block-one">
                                                 <div class="inner-box">
                                                     <div class="image-box">
