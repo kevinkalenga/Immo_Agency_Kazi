@@ -497,8 +497,24 @@
       compare();
     });
 </script>
-
-
+ <!-- Partage de bien -->
+    <script>
+        function shareProperty(title, url) {
+                // console.log("CLICK SHARE", title, url);
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Check this property:',
+                    url: url
+                });
+            } else {
+                window.open(
+                    "https://wa.me/?text=" + encodeURIComponent(title + ' ' + url),
+                    "_blank"
+                );
+            }
+        }
+    </script>
 
 </body><!-- End of .page_wrapper -->
 </html>
