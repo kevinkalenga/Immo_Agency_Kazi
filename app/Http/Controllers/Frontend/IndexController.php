@@ -139,7 +139,7 @@ class IndexController extends Controller
     }
     public function BuyProperty()
     {
-         $bProperty = Property::where('status', '1')->where('property_status', 'buy')->get();
+         $bProperty = Property::where('status', '1')->where('property_status', 'buy')->paginate(3);
 
           $rProperty = Property::where('status', '1')
                 ->where('property_status', 'rent')
