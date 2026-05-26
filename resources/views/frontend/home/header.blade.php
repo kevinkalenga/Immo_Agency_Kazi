@@ -78,9 +78,7 @@
         </div>
     </nav>
 </div>
-<!-- <div class="btn-box">
-    <a href="index.html" class="theme-btn btn-one"><span>+</span>Add Listing</a>
-</div> -->
+
 </div>
 </div>
 </div>
@@ -97,9 +95,9 @@
                                 <!--Keep This Empty / Menu will come through Javascript-->
                             </nav>
                         </div>
-                        <div class="btn-box">
+                        {{--<div class="btn-box">
                             <a href="index.html" class="theme-btn btn-one"><span>+</span>Add Listing</a>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>

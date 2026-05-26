@@ -109,6 +109,7 @@
                                     <li>Property Status: <span>For {{$property->property_status}}</span></li>
                                     <li>Property Size: <span>{{$property->property_size}}</span></li>
                                     <li>Garage: <span>{{$property->garage}}</span></li>
+                                    <li>Year: <span>{{$property->year_built}}</span></li>
                                 </ul>
                             </div>
                             <div class="amenities-box content-widget">

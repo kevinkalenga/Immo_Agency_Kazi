@@ -116,19 +116,28 @@
 											</div><!-- Col -->
 										</div><!-- Row -->
 										<div class="row">
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Property Size</label>
 													<input type="text" class="form-control" name="property_size">
 												</div>
 											</div><!-- Col -->
-											<div class="col-sm-4">
+											
+											<div class="col-sm-3">
+												<div class="mb-3">
+													<label class="form-label">Year Built</label>
+													<input type="number" class="form-control" name="year_built" placeholder="Ex: 2020">
+												</div>
+											</div>
+											
+											
+											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Property Video</label>
 													<input type="text" class="form-control" name="property_video">
 												</div>
 											</div><!-- Col -->
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Neighborhood</label>
 													<input type="text" class="form-control" name="neighborhood">
@@ -454,6 +463,9 @@ $(document).ready(function () {
               required : true,
 
             },
+			year_built: {
+              required: true,
+            },
 			property_status: {
 				required: true,
 			},
@@ -483,6 +495,9 @@ $(document).ready(function () {
 			property_status: {
                required : 'Please Select Property Status',
             },
+			year_built: {
+             required: 'Please enter year built',
+            }
 			lowest_price: {
               required : 'Please Enter Lowest Price',
             },

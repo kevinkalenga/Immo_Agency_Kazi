@@ -66,6 +66,10 @@
                   <td><code>{{$property->postal_code}}</code></td>
               </tr>
               <tr>
+                  <td>Built Year</td>
+                  <td><code>{{$property->year_built}}</code></td>
+              </tr>
+              <tr>
                   <td>Main Image</td>
                   <td>
                     <img src="{{asset($property->property_thambnail)}}" style="width:100px; height:70px; border-raduis:50%;">

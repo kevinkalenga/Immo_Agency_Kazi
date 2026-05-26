@@ -52,6 +52,7 @@ class PropertyController extends Controller
             'facility_name.*' => 'required|string|max:255',
             'distance' => 'nullable|array',
             'distance.*' => 'nullable|string|max:100',
+            'year_built' => 'nullable|integer|min:1800|max:' . date('Y'),
         ]);
 
         $amenities = $request->amenities_id 
@@ -115,6 +116,7 @@ class PropertyController extends Controller
                    'hot' => $request->hot,
                    'agent_id' => $request->agent_id,
                    'status' => 1,
+                   'year_built' => $request->year_built,
                    'property_thambnail' => $save_url,
                ]);
 
@@ -219,6 +221,7 @@ class PropertyController extends Controller
         'garage'          => $request->garage,
         'garage_size'     => $request->garage_size,
         'property_size'   => $request->property_size,
+        'year_built' => $request->year_built,
         'property_video'  => $request->property_video,
         'address'         => $request->address,
         'city'            => $request->city,

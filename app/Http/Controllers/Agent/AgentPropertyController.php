@@ -134,6 +134,7 @@ class AgentPropertyController extends Controller
                    'hot' => $request->hot,
                    'agent_id' => Auth::user()->id, //User who is logged in
                    'status' => 1,
+                   'year_built' => $request->year_built,
                    'property_thambnail' => $save_url,
                ]);
 
@@ -248,6 +249,7 @@ class AgentPropertyController extends Controller
         'garage'          => $request->garage,
         'garage_size'     => $request->garage_size,
         'property_size'   => $request->property_size,
+        'year_built' => $request->year_built,
         'property_video'  => $request->property_video,
         'address'         => $request->address,
         'city'            => $request->city,

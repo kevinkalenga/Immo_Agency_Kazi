@@ -105,19 +105,25 @@
                             </div>
                             <!-- Property Size / Video / Neighborhood -->
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Property Size</label>
                                         <input type="text" class="form-control" name="property_size" value="{{$property->property_size}}">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Year Built</label>
+                                        <input type="number" class="form-control" name="year_built" value="{{$property->year_built}}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Property Video</label>
                                         <input type="text" class="form-control" name="property_video" value="{{$property->property_video}}">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">Neighborhood</label>
                                         <input type="text" class="form-control" name="neighborhood" value="{{$property->neighborhood}}">
