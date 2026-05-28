@@ -127,6 +127,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
      // Property Type All Route
     Route::controller(StateController::class)->group(function(){
          Route::get('/all/state', 'AllState')->name('all.state');
+         Route::get('/add/state', 'AddState')->name('add.state');
+         Route::post('/store/state', 'StoreState')->name('store.state'); 
          
     });
 });

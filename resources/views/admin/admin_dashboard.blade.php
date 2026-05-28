@@ -132,20 +132,29 @@ License: For each use you must have a valid license purchased only from above li
 	<!-- End plugin js for this page -->
 
   
-	<script src="{{asset('backend/assets/js/inputmask.js')}}"></script>
-	<script src="{{asset('backend/assets/js/select2.js')}}"></script>
-	<script src="{{asset('backend/assets/js/typeahead.js')}}"></script>
-	<script src="{{asset('backend/assets/js/tags-input.js')}}"></script>
-	<script src="{{asset('backend/assets/js/dropzone.js')}}"></script>
-	<script src="{{asset('backend/assets/js/dropify.js')}}"></script>
-	<script src="{{asset('backend/assets/js/pickr.js')}}"></script>
-	<script src="{{asset('backend/assets/js/flatpickr.js')}}"></script>
-
-
+	<!-- Vendors FIRST -->
 	<script src="{{asset('backend/assets/vendors/inputmask/jquery.inputmask.min.js')}}"></script>
 	<script src="{{asset('backend/assets/vendors/select2/select2.min.js')}}"></script>
 	<script src="{{asset('backend/assets/vendors/typeahead.js/typeahead.bundle.min.js')}}"></script>
 	<script src="{{asset('backend/assets/vendors/jquery-tags-input/jquery.tagsinput.min.js')}}"></script>
+
+	<!-- Then plugins init -->
+	<script src="{{asset('backend/assets/js/inputmask.js')}}"></script>
+	<script src="{{asset('backend/assets/js/select2.js')}}"></script>
+	<script src="{{asset('backend/assets/js/typeahead.js')}}"></script>
+	<script src="{{asset('backend/assets/js/tags-input.js')}}"></script>
+
+	
+	<!-- <script src="{{asset('backend/assets/vendors/dropzone/dropzone.min.js')}}"></script>
+	<script src="{{asset('backend/assets/vendors/dropify/dist/dropify.min.js')}}"></script>
+	<script src="{{asset('backend/assets/vendors/pickr/pickr.min.js')}}"></script> -->
+	
+	
+	
+	<!-- <script src="{{asset('backend/assets/js/dropzone.js')}}"></script>
+	<script src="{{asset('backend/assets/js/dropify.js')}}"></script>
+	<script src="{{asset('backend/assets/js/pickr.js')}}"></script>
+	<script src="{{asset('backend/assets/js/flatpickr.js')}}"></script> -->
 
 
 	<!-- tinymce -->
