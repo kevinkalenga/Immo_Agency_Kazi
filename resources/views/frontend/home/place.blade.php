@@ -1,3 +1,15 @@
+   @php   
+   
+    $skip_state_0 = App\Models\State::skip(0)->first();
+    $property_0 = App\Models\Property::where('state', $skip_state_0->id)->get();
+
+
+
+   @endphp
+        
+        
+        
+        
         <section class="place-section sec-pad">
             <div class="auto-container">
                 <div class="sec-title centred">
@@ -10,10 +22,10 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column all illustration brand marketing software">
                             <div class="place-block-one">
                                 <div class="inner-box">
-                                    <figure class="image-box"><img src="{{asset('frontend/assets/images/resource/place-1.jpg')}}" alt=""></figure>
+                                    <figure class="image-box"><img src="{{asset($skip_state_0->state_image)}}"alt="" style="width:370px; height:580px;"></figure>
                                     <div class="text">
-                                        <h4><a href="categories.html">Los Angeles</a></h4>
-                                        <p>10 Properties</p>
+                                        <h4><a href="categories.html">{{$skip_state_0->state_name}}</a></h4>
+                                        <p>{{count($property_0)}} Properties</p>
                                     </div>
                                 </div>
                             </div>
