@@ -174,4 +174,9 @@ class IndexController extends Controller
         return view('frontend.property.state_property',compact('property','bstate'));
 
     }
+    public function BuyPropertySearch(Request $request){
+
+       
+
+    }
 }

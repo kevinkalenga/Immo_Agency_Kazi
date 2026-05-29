@@ -219,6 +219,11 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
 
  // Get State Details Data 
  Route::get('/state/details/{id}', [IndexController::class, 'StateDetails'])->name('state.details');
+ 
+ 
+ 
+ // Search Option Home Pga
+ Route::post('/buy/property/search', [IndexController::class, 'BuyPropertySearch'])->name('buy.property.search');
 
 
 
