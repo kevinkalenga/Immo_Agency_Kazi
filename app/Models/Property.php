@@ -30,6 +30,7 @@ class Property extends Model
      public function type() {
           return $this->belongsTo(PropertyType::class, 'ptype_id', 'id');
      }
+   
 
       /**
      * RELATION : Property → User (Agent)
@@ -80,4 +81,8 @@ class Property extends Model
     {
         return $this->belongsToMany(Amenitie::class);
     }
+
+    public function pState() {
+          return $this->belongsTo(State::class, 'state', 'id');
+     }
 }
