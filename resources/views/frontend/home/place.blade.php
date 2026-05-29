@@ -1,7 +1,17 @@
    @php   
    
-    $skip_state_0 = App\Models\State::skip(0)->first();
-    $property_0 = App\Models\Property::where('state', $skip_state_0->id)->get();
+    $skip_state_6 = App\Models\State::skip(6)->first();
+    $property_6 = App\Models\Property::where('state', $skip_state_6->id)->get();
+    
+    $skip_state_1 = App\Models\State::skip(1)->first();
+    $property_1 = App\Models\Property::where('state', $skip_state_1->id)->get();
+
+    $skip_state_2 = App\Models\State::skip(2)->first();
+    $property_2 = App\Models\Property::where('state', $skip_state_2->id)->get();
+
+    $skip_state_3 = App\Models\State::skip(3)->first();
+    $property_3 = App\Models\Property::where('state', $skip_state_3->id)->get();
+   
 
 
 
@@ -22,10 +32,10 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column all illustration brand marketing software">
                             <div class="place-block-one">
                                 <div class="inner-box">
-                                    <figure class="image-box"><img src="{{asset($skip_state_0->state_image)}}"alt="" style="width:370px; height:580px;"></figure>
+                                    <figure class="image-box"><img src="{{asset($skip_state_6->state_image)}}"alt="" style="width:370px; height:580px;"></figure>
                                     <div class="text">
-                                        <h4><a href="categories.html">{{$skip_state_0->state_name}}</a></h4>
-                                        <p>{{count($property_0)}} Properties</p>
+                                        <h4><a href="categories.html">{{$skip_state_6->state_name}}</a></h4>
+                                        <p>{{count($property_6)}} Properties</p>
                                     </div>
                                 </div>
                             </div>
@@ -33,10 +43,10 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column all brand illustration print software logo">
                             <div class="place-block-one">
                                 <div class="inner-box">
-                                    <figure class="image-box"><img src="{{asset('frontend/assets/images/resource/place-2.jpg')}}" alt=""></figure>
+                                    <figure class="image-box"><img src="{{asset($skip_state_1->state_image)}}"alt="" style="width:370px; height:275px;" alt=""></figure>
                                     <div class="text">
-                                        <h4><a href="categories.html">San Francisco</a></h4>
-                                        <p>08 Properties</p>
+                                        <h4><a href="categories.html">{{$skip_state_1->state_name}}</a></h4>
+                                        <p>{{count($property_1)}} Properties</p>
                                     </div>
                                 </div>
                             </div>
@@ -44,10 +54,10 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 masonry-item small-column all illustration marketing logo">
                             <div class="place-block-one">
                                 <div class="inner-box">
-                                    <figure class="image-box"><img src="{{asset('frontend/assets/images/resource/place-3.jpg')}}" alt=""></figure>
+                                    <figure class="image-box"><img src="{{asset($skip_state_2->state_image)}}" alt="" style="width:370px; height:275px;"></figure>
                                     <div class="text">
-                                        <h4><a href="categories.html">Las Vegas</a></h4>
-                                        <p>29 Properties</p>
+                                        <h4><a href="categories.html">{{$skip_state_2->state_name}}</a></h4>
+                                        <p>{{count($property_2)}} Properties</p>
                                     </div>
                                 </div>
                             </div>
@@ -55,10 +65,10 @@
                         <div class="col-lg-8 col-md-6 col-sm-12 masonry-item small-column all brand marketing print software">
                             <div class="place-block-one">
                                 <div class="inner-box">
-                                    <figure class="image-box"><img src="{{asset('frontend/assets/images/resource/place-4.jpg')}}" alt=""></figure>
+                                    <figure class="image-box"><img src="{{asset($skip_state_3->state_image)}}" alt="" style="width:770px; height:275px;"></figure>
                                     <div class="text">
-                                        <h4><a href="categories.html">New York City</a></h4>
-                                        <p>05 Properties</p>
+                                        <h4><a href="categories.html">{{$skip_state_3->state_name}}</a></h4>
+                                        <p>{{count($property_3)}} Properties</p>
                                     </div>
                                 </div>
                             </div>
