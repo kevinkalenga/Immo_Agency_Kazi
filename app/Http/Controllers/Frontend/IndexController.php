@@ -10,6 +10,7 @@ use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\PackagePlan;
 use App\Models\User;
+use App\Models\State; 
 use App\Models\MultiImage;
 use App\Models\PropertyMessage;
 use Carbon\Carbon;
@@ -162,6 +163,15 @@ class IndexController extends Controller
 
          
          return view('frontend.property.property_type', compact('propertyType', 'bProperty', 'rProperty', 'pBread'));
+
+    }
+
+    public function StateDetails($id){
+
+       $property = Property::where('status','1')->where('state',$id)->get();
+
+       $bstate = State::where('id',$id)->first();
+        return view('frontend.property.state_property',compact('property','bstate'));
 
     }
 }
