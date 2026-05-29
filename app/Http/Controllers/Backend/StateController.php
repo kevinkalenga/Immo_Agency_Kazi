@@ -126,6 +126,25 @@ class StateController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
+
+    public function DeleteState($id)
+    {
+        $state = State::findOrFail($id);
+
+        // supprimer image du dossier si elle existe
+        if (File::exists(public_path($state->state_image))) {
+            File::delete(public_path($state->state_image));
+        }
+
+        // supprimer en base
+        $state->delete();
+
+        return redirect()->route('all.state')->with([
+            'message' => 'State Deleted Successfully',
+            'alert-type' => 'success'
+        ]);
+    }
     
 
 }
