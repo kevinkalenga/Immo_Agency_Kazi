@@ -59,7 +59,7 @@
               </tr>
               <tr>
                   <td>State</td>
-                  <td><code>{{$property->state}}</code></td>
+                  <td><code>{{$property['pState']['state_name']}}</code></td>
               </tr>
               <tr>
                   <td>Post Code</td>
@@ -133,7 +133,7 @@
                   <td>
                     <div class="row">
                       @foreach($amenities as $amenitie)
-                        @if(in_array($amenitie->id, $property_ami))
+                        @if(in_array($amenitie->amenities_name, $property_ami))
                           <div class="col-md-6 mb-1">
                             <i class="mdi mdi-check-circle-outline text-success me-1"></i>
                             {{ $amenitie->amenities_name }}

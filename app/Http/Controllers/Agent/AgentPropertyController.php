@@ -10,6 +10,7 @@ use App\Models\Facility;
 use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
+use App\Models\State;
 use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use Carbon\Carbon;
@@ -37,7 +38,7 @@ class AgentPropertyController extends Controller
     {
       $propertyType = PropertyType::latest()->get();
       $amenities = Amenities::latest()->get();
-
+      $pState = State::latest()->get();
       $id = Auth::user()->id;
 
       $property = User::where('role', 'agent')->where('id', $id)->first();
@@ -47,7 +48,7 @@ class AgentPropertyController extends Controller
       if($pCount == 1 || $pCount == 8) {
         return redirect()->route('buy.package');
       } else {
-        return view('agent.property.add_property', compact('propertyType', 'amenities'));
+        return view('agent.property.add_property', compact('propertyType', 'amenities', 'pState'));
       }
      
      
@@ -200,7 +201,7 @@ class AgentPropertyController extends Controller
     {
       $facilities = Facility::where('property_id', $id)->get();
       $property = Property::findOrFail($id);
-      
+      $pState = State::latest()->get();
       $type = $property->amenities_id;
       $property_ami = explode(',', $type);
             
@@ -210,7 +211,7 @@ class AgentPropertyController extends Controller
       $amenities = Amenities::latest()->get();
     
 
-       return view('agent.property.edit_property', compact('property', 'propertyType', 'amenities', 'property_ami' ,'multiImage', 'facilities'));
+       return view('agent.property.edit_property', compact('property', 'propertyType', 'amenities', 'property_ami' ,'multiImage', 'facilities', 'pState'));
     }
 
 
