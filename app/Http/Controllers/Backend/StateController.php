@@ -8,6 +8,7 @@ use App\Models\State;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\File;
 
 class StateController extends Controller
 {
@@ -60,5 +61,71 @@ class StateController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
+    public function EditState($id){
+
+        $state = State::findOrFail($id);
+        return view('backend.state.edit_state',compact('state'));
+
+    }
+
+    
+    public function UpdateState(Request $request, $id)
+    {
+        $request->validate([
+            'state_name' => 'required|string|max:255',
+            'state_image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+        ]);
+
+        $state = State::findOrFail($id);
+
+        $image = $request->file('state_image');
+
+        // SI nouvelle image uploadée
+        if ($image) {
+
+            // supprimer ancienne image si elle existe
+            if (File::exists(public_path($state->state_image))) {
+                File::delete(public_path($state->state_image));
+            }
+
+            // Intervention Image v3
+            $manager = new ImageManager(new Driver());
+
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+
+            $image_resized = $manager->read($image)
+                ->resize(370, 275);
+
+            $path = public_path('uploads/state/');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            $image_resized->save($path . $name_gen);
+
+            $save_url = 'uploads/state/' . $name_gen;
+
+            // update avec image
+            $state->update([
+                'state_name' => $request->state_name,
+                'state_image' => $save_url,
+            ]);
+
+        } else {
+
+            // update sans changer image
+            $state->update([
+                'state_name' => $request->state_name,
+            ]);
+        }
+
+        return redirect()->route('all.state')->with([
+            'message' => 'State Updated Successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+    
 
 }
