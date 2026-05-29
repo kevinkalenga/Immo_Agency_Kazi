@@ -11,6 +11,7 @@ use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\PackagePlan;
 use App\Models\User;
+use App\Models\State;
 use App\Models\MultiImage;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
@@ -32,9 +33,10 @@ class PropertyController extends Controller
     public function AddPropertie()
     {
       $propertyType = PropertyType::latest()->get();
+      $pState = State::latest()->get();
       $amenities = Amenities::latest()->get();
       $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
-      return view('backend.property.add_property', compact('propertyType', 'amenities', 'activeAgent'));
+      return view('backend.property.add_property', compact('propertyType', 'amenities', 'activeAgent', 'pState'));
     }
 
     public function StorePropertie(Request $request)
@@ -180,6 +182,7 @@ class PropertyController extends Controller
     {
       $facilities = Facility::where('property_id', $id)->get();
       $property = Property::findOrFail($id);
+      $pState = State::latest()->get();
       
       $type = $property->amenities_id;
       $property_ami = explode(',', $type);
@@ -190,7 +193,7 @@ class PropertyController extends Controller
       $amenities = Amenities::latest()->get();
       $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
 
-       return view('backend.property.edit_property', compact('property', 'propertyType', 'amenities', 'activeAgent', 'property_ami' ,'multiImage', 'facilities'));
+       return view('backend.property.edit_property', compact('property', 'propertyType', 'amenities', 'activeAgent', 'property_ami' ,'multiImage', 'facilities', 'pState'));
     }
 
    
