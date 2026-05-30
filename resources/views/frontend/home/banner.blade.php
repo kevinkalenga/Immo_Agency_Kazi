@@ -79,14 +79,16 @@
                                 <div class="tab" id="tab-2">
                                     <div class="inner-box">
                                         <div class="top-search">
-                                            <form action="index.html" method="post" class="search-form">
+                                           
+                                           <form action="{{route('rent.property.search')}}" method="post" class="search-form">
+                                                @csrf
                                                 <div class="row clearfix">
                                                     <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                         <div class="form-group">
                                                             <label>Search Property</label>
                                                             <div class="field-input">
                                                                 <i class="fas fa-search"></i>
-                                                                <input type="search" name="search-field" placeholder="Search by Property, Location or Landmark..." required="">
+                                                                <input type="search" name="search" placeholder="Search by Property, Location or Landmark..." required="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -95,12 +97,11 @@
                                                             <label>Location</label>
                                                             <div class="select-box">
                                                                 <i class="far fa-compass"></i>
-                                                                <select class="wide">
+                                                                <select name="state" class="wide">
                                                                    <option data-display="Input location">Input location</option>
-                                                                   <option value="1">New York</option>
-                                                                   <option value="2">California</option>
-                                                                   <option value="3">London</option>
-                                                                   <option value="4">Maxico</option>
+                                                                    @foreach($states as $state)
+                                                                      <option value="{{$state->state_name}}">{{$state->state_name}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -109,12 +110,11 @@
                                                         <div class="form-group">
                                                             <label>Property Type</label>
                                                             <div class="select-box">
-                                                                <select class="wide">
-                                                                   <option data-display="All Type">All Type</option>
-                                                                   <option value="1">Laxury</option>
-                                                                   <option value="2">Classic</option>
-                                                                   <option value="3">Modern</option>
-                                                                   <option value="4">New</option>
+                                                                <select name="ptype_id" class="wide">
+                                                                    <option data-display="All Type">All Type</option>
+                                                                    @foreach($pTypes as $type)
+                                                                     <option value="{{$type->type_name}}">{{$type->type_name}}</option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -124,6 +124,8 @@
                                                     <button type="submit"><i class="fas fa-search"></i>Search</button>
                                                 </div>
                                             </form>
+                                      
+                                    
                                         </div>
                                       
                                     </div>

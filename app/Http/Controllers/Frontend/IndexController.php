@@ -197,4 +197,25 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search', compact('property'));
     }
+
+
+    public function RentPropertySearch(Request $request){
+
+        $request->validate(['search' => 'required']);
+        $item = $request->search;
+        $sState = $request->state;
+        $stype = $request->ptype_id;
+
+       $property = Property::where('property_name', 'like' , '%' .$item. '%')->where('property_status','rent')->with('type','pState')
+        ->whereHas('pState', function($q) use ($sState){
+            $q->where('state_name','like' , '%' .$sState. '%');
+        })
+        ->whereHas('type', function($q) use ($stype){
+            $q->where('type_name','like' , '%' .$stype. '%');
+         })
+        ->paginate(4);
+
+        return view('frontend.property.property_search',compact('property'));
+
+    }
 }

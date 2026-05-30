@@ -222,8 +222,11 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
  
  
  
- // Search Option Home Pga
+ // Search Option Home Page Buy
  Route::post('/buy/property/search', [IndexController::class, 'BuyPropertySearch'])->name('buy.property.search');
+
+ // Search Option Home Page Rent
+  Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearch'])->name('rent.property.search');
 
 
 
