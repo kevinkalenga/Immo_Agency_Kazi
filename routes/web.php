@@ -228,6 +228,9 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
  // Search Option Home Page Rent
   Route::post('/rent/property/search', [IndexController::class, 'RentPropertySearch'])->name('rent.property.search');
 
+  // Display all agents
+  Route::get('/agents', [IndexController::class, 'AllAgents'])->name('agents.all');
+
 
 
 

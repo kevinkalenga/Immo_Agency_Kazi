@@ -218,4 +218,15 @@ class IndexController extends Controller
         return view('frontend.property.property_search',compact('property'));
 
     }
+
+
+    public function AllAgents()
+    {
+        $agents = User::where('status', 'active')
+            ->where('role', 'agent')
+            ->orderBy('id', 'DESC')
+            ->paginate(9);
+
+        return view('frontend.agent.all_agents', compact('agents'));
+    }
 }
