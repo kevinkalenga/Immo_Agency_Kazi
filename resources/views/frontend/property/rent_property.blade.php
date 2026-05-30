@@ -73,7 +73,7 @@
                                         <div class="select-box">
                                             <select name="bedrooms" class="wide">
                                             <option data-display="Rooms">Max Rooms</option>
-                                            <option value="1">1 Rooms</option>
+                                            <option value="1">1 Room</option>
                                             <option value="2">2 Rooms</option>
                                             <option value="3">3 Rooms</option>
                                             <option value="4">4 Rooms</option>
@@ -84,10 +84,10 @@
                                             <select name="bathrooms" class="wide">
                                             <option data-display="Bathrooms">Max BathRoom</option>
                                             <option value="1">1 BathRoom</option>
-                                            <option value="2">2 BathRoom</option>
-                                            <option value="3">3 BathRoom</option>
-                                            <option value="4">4 BathRoom</option>
-                                            <option value="5">5 BathRoom</option>
+                                            <option value="2">2 BathRooms</option>
+                                            <option value="3">3 BathRooms</option>
+                                            <option value="4">4 BathRooms</option>
+                                            <option value="5">5 BathRooms</option>
                                             </select>
                                         </div>
                                     
