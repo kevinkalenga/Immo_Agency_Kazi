@@ -174,9 +174,27 @@ class IndexController extends Controller
         return view('frontend.property.state_property',compact('property','bstate'));
 
     }
-    public function BuyPropertySearch(Request $request){
+   
 
-       
+    public function BuyPropertySearch(Request $request)
+    {
+        $request->validate(['search' => 'required']);
 
+        $item = $request->search;
+        $sState = $request->state;
+        $sType = $request->ptype_id;
+
+        $property = Property::where('property_name', 'like', '%' . $item . '%')
+            ->where('property_status', 'buy')
+            ->with('type', 'pState')
+            ->whereHas('pState', function ($q) use ($sState) {
+                $q->where('state_name', 'like', '%' . $sState . '%');
+            })
+            ->whereHas('type', function ($q) use ($sType) {
+                $q->where('type_name', 'like', '%' . $sType . '%');
+            })
+            ->paginate(4);
+
+        return view('frontend.property.property_search', compact('property'));
     }
 }

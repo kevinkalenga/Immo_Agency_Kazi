@@ -29,6 +29,7 @@
                                     <div class="inner-box">
                                         <div class="top-search">
                                             <form action="{{route('buy.property.search')}}" method="post" class="search-form">
+                                                @csrf
                                                 <div class="row clearfix">
                                                     <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                         <div class="form-group">
