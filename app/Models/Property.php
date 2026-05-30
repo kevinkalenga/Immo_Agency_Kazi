@@ -83,6 +83,6 @@ class Property extends Model
     }
 
     public function pState() {
-          return $this->belongsTo(State::class, 'state', 'id');
+          return $this->belongsTo(State::class, 'state',  'id');
      }
 }

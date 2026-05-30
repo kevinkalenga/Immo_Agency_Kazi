@@ -230,6 +230,9 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
 
   // Display all agents
   Route::get('/agents', [IndexController::class, 'AllAgents'])->name('agents.all');
+  
+  // Display all agents
+  Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
 
 
 

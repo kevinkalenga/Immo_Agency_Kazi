@@ -22,12 +22,15 @@ class IndexController extends Controller
     public function PropertyDetails($id, $slug)
     {
         $property = Property::findOrFail($id);
+
         $amenities = $property->amenities_id;
         $property_amen = explode(',', $amenities);
         $multiImage = MultiImage::where('property_id', $id)->get();
         $facility = Facility::where('property_id', $id)->get();
         $type_id = $property->ptype_id;
         $relatedProperty = Property::where('ptype_id', $type_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(3)->get();
+
+        
         
         return view('frontend.property.property_details', compact('property', 'multiImage', 'property_amen', 'facility', 'relatedProperty'));
     }
@@ -225,8 +228,33 @@ class IndexController extends Controller
         $agents = User::where('status', 'active')
             ->where('role', 'agent')
             ->orderBy('id', 'DESC')
-            ->paginate(9);
+            ->paginate(6);
 
         return view('frontend.agent.all_agents', compact('agents'));
+    }
+
+
+    public function AllPropertySearch(Request $request){
+
+        $property_status = $request->property_status;
+        $stype = $request->ptype_id; 
+        $sState = $request->state;
+        $bedrooms = $request->bedrooms;
+        $bathrooms = $request->bathrooms;
+
+        $property = Property::where('status','1')
+            ->where('bedrooms',$bedrooms)
+            ->where('bathrooms', 'like' , '%' .$bathrooms. '%')
+            ->where('property_status',$property_status) 
+            ->with('type','pState')
+            ->whereHas('pState', function($q) use ($sState){
+                $q->where('state_name','like' , '%' .$sState. '%');
+            })
+            ->whereHas('type', function($q) use ($stype){
+                $q->where('type_name','like' , '%' .$stype. '%');
+            })
+            ->paginate(3);
+
+        return view('frontend.property.property_search',compact('property'));
     }
 }
