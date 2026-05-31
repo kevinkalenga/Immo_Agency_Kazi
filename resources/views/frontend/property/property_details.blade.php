@@ -35,7 +35,7 @@
                             <div class="author-box pull-left">
                                 
                                 @if($property->agent_id == Null)  
-                                 <figure class="author-thumb"><img src="{{url('uploads/admin_images/202601270038admin.jpg')}}" alt=""></figure>
+                                 <figure class="author-thumb"><img src="{{url('uploads/admin_images/202605302123t1.jpg')}}" alt=""></figure>
                                  <h6>Admin</h6>
                                 @else  
                                    <figure class="author-thumb"><img src="{{(!empty($property->user->photo)) ? url('uploads/agent_images/'.$property->user->photo) : url('uploads/no_image.jpg')}}" alt=""></figure>

@@ -31,6 +31,7 @@
 <link href="{{asset('frontend/assets/css/responsive.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+
 </head>
 
 
@@ -128,7 +129,7 @@
  }
  @endif 
 </script>
-@yield('scripts')
+ @yield('scripts')
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -308,7 +309,7 @@
     
     
     $(document).ready(function(){
-      wishlist();
+    //   wishlist();
     });
 </script>
 
@@ -494,7 +495,7 @@
     
     
     $(document).ready(function(){
-      compare();
+    //   compare();
     });
 </script>
  <!-- Partage de bien -->
@@ -515,6 +516,6 @@
             }
         }
     </script>
-
+ 
 </body><!-- End of .page_wrapper -->
 </html>

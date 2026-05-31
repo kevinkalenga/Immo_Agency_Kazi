@@ -233,7 +233,7 @@ class IndexController extends Controller
         return view('frontend.agent.all_agents', compact('agents'));
     }
 
-
+   
     public function AllPropertySearch(Request $request){
 
         $property_status = $request->property_status;
@@ -257,4 +257,8 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search',compact('property'));
     }
+
+
+     
+   
 }
