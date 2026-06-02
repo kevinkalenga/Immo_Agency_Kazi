@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\StateController;
+use App\Http\Controllers\Backend\TestimonialController;
 
 use App\Http\Controllers\Agent\AgentPropertyController;
 
@@ -132,6 +133,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::get('/edit/state/{id}', 'EditState')->name('edit.state'); 
          Route::post('/update/state/{id}',  'UpdateState')->name('update.state');
          Route::get('/delete/state/{id}',  'DeleteState')->name('delete.state');
+         
+    });
+     // Testimonials All Route
+    Route::controller(TestimonialController::class)->group(function(){
+         Route::get('/all/testimonials', 'AllTestimonials')->name('all.testimonials');
+       
          
     });
 });
