@@ -67,7 +67,7 @@
                   <a href="{{route('all.testimonials')}}" class="nav-link">All Testimonials</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{route('add.state')}}" class="nav-link">Add State</a>
+                  <a href="{{route('add.testimonials')}}" class="nav-link">Add Testimonials</a>
                 </li>
                 
               </ul>

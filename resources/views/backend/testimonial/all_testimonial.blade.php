@@ -6,7 +6,7 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="{{ route('add.state') }}" class="btn btn-inverse-info">Add Testimonial</a>
+                <a href="{{ route('add.testimonials') }}" class="btn btn-inverse-info">Add Testimonial</a>
             </ol>
         </nav>
 

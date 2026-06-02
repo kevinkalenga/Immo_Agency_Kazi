@@ -138,6 +138,8 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
      // Testimonials All Route
     Route::controller(TestimonialController::class)->group(function(){
          Route::get('/all/testimonials', 'AllTestimonials')->name('all.testimonials');
+         Route::get('/add/testimonials', 'AddTestimonials')->name('add.testimonials');
+         Route::post('/store/testimonials', 'StoreTestimonials')->name('store.testimonials');
        
          
     });
