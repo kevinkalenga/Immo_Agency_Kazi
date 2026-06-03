@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\BlogController;
 
 use App\Http\Controllers\Agent\AgentPropertyController;
 
@@ -146,6 +147,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
        
          
     });
+      // Blog Category All Route
+      Route::controller(BlogController::class)->group(function(){
+         Route::get('/all/blog/category', 'AllBlogCategory')->name('all.blog.category');
+      
+    });
+
+
 });
 
 
