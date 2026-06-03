@@ -6,7 +6,10 @@
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="{{ route('add.state') }}" class="btn btn-inverse-info">Add Category</a>
+               
+                <button type="button" class="btn btn-inverse-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add Category
+                </button>
             </ol>
         </nav>
 
@@ -50,5 +53,35 @@
         </div>
 
     </div>
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                        <form  class="forms-sample" action="{{route('store.blog.category')}}" method="POST" >
+                            @csrf 
+							<div class="mb-3">
+                                <label class="form-label">Blog Category Name</label>
+                                <input name="category_name" type="text" class="form-control" />
+                            </div>
+							
+									
+						
+                    
+                    </div>
+                    <div class="modal-footer">
+                      
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
 
 @endsection
