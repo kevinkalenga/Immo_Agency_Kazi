@@ -43,7 +43,7 @@
                                                 "modal" data-bs-target="#catEdit" id="{{$item->id}}" onclick="categoryEdit(this.id)">
                                                     Edit
                                                 </button>
-                                                <a href="{{ route('delete.state', $item->id) }}" class="btn btn-inverse-danger" id="delete">Delete</a>
+                                                <a href="{{ route('delete.blog.category', $item->id) }}" class="btn btn-inverse-danger" id="delete">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -99,7 +99,7 @@
                     </div>
                     <div class="modal-body">
                       
-                        <form  class="forms-sample" action="{{route('store.blog.category')}}" method="POST" >
+                        <form  class="forms-sample" action="{{route('update.blog.category')}}" method="POST" >
                             @csrf 
                             <input type="hidden" name="cat_id" id="cat_id">
 							<div class="mb-3">
