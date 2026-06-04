@@ -38,4 +38,10 @@ class BlogController extends Controller
     
     }
 
+    public function EditBlogCategory($id) 
+    {
+      $categories = BlogCategory::findOrFail($id);
+      return response()->json($categories);
+    }
+
 }
