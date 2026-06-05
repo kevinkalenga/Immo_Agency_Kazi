@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Str;
 use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Carbon\Carbon;
 
 class BlogController extends Controller
@@ -76,6 +78,13 @@ class BlogController extends Controller
 
        return redirect()->back()->with($notification);
     
+    }
+
+    public function AllPost()
+    {
+      $posts = BlogPost::latest()->get();
+
+      return view('backend.post.all_post', compact('posts'));
     }
 
 }

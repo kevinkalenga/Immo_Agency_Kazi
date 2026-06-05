@@ -157,6 +157,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
       
     });
 
+     // Testimonials All Route
+    Route::controller(BlogController::class)->group(function(){
+         Route::get('/all/post', 'AllPost')->name('all.post');
+      
+       
+         
+    });
+
 
 });
 
