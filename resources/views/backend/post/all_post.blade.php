@@ -32,8 +32,9 @@
                                         <tr>
                                             <td>{{$key+1}}</td>
                                             <td>{{$item->post_title}}</td>
-                                            <td>{{$item->post_title}}</td>
-                                            <td>{{$item->blogcat_id}}</td>
+                                            <td>{{$item['cat']['category_name']}}</td>
+                                           
+                                            
                                             <td>
                                                 <img src="{{asset($item->post_image)}}" alt="" style="width:70px; height:40px;">
                                             </td>

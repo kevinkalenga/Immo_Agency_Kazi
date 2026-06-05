@@ -16,7 +16,7 @@
                         <h6 class="card-title">Add Post</h6>
 
                         <form class="forms-sample"
-                              action="{{ route('store.state') }}"
+                              action="{{ route('store.post') }}"
                               method="POST"
                               enctype="multipart/form-data">
 

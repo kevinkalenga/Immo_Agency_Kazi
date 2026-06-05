@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use Carbon\Carbon;
+use Auth;
 
 class BlogController extends Controller
 {
@@ -90,6 +91,48 @@ class BlogController extends Controller
     {
       $blogCat = BlogCategory::latest()->get();
        return view('backend.post.add_post', compact('blogCat'));
+    }
+
+    public function StorePost(Request $request)
+    {
+       
+
+        $image = $request->file('post_image');
+
+        // Intervention Image v3
+        $manager = new ImageManager(new Driver());
+
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+
+        $image_resized = $manager->read($image)
+            ->resize(370, 250);
+
+        $path = public_path('uploads/post/');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $image_resized->save($path . $name_gen);
+
+        $save_url = 'uploads/post/' . $name_gen;
+
+        BlogPost::insert([
+            'blogcat_id' => $request->blogcat_id,
+            'user_id' => Auth::user()->id,
+            'post_title' => $request->post_title,
+            'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+            'post_image' => $save_url,
+            'short_descp' => $request->short_descp,
+            'long_descp' => $request->long_descp,
+            'post_tags' => $request->post_tags,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return redirect()->route('all.post')->with([
+            'message' => 'BlogPost Inserted Successfully',
+            'alert-type' => 'success'
+        ]);
     }
 
 }
