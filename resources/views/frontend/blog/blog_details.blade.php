@@ -180,7 +180,7 @@
                                             $post = App\Models\BlogPost::where('blogcat_id', $cat->id)->get();
                                           @endphp
                                       
-                                          <li><a href="blog-details.html">{{$cat->category_name}}<span>({{count($post)}})</span></a></li>
+                                          <li><a href="{{url('blog/cat/list/'.$cat->id)}}">{{$cat->category_name}}<span>({{count($post)}})</span></a></li>
                                        @endforeach 
                                     </ul>
                                 </div>
@@ -232,20 +232,6 @@
             </div>
         </section>
         <!-- subscribe-section end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
