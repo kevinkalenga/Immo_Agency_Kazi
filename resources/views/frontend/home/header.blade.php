@@ -67,7 +67,7 @@
                     </ul>
                 </li>
                 <li><a href="{{route('agents.all')}}"><span>Agents</span></a></li>
-                <li><a href="{{route('home')}}"><span>Blog</span></a></li>  
+                <li><a href="{{route('blog.list')}}"><span>Blog</span></a></li>  
                 <li><a href="contact.html"><span>Contact</span></a></li> 
                 <li>
                   

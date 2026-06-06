@@ -257,5 +257,16 @@ class BlogController extends Controller
 
        return view('frontend.blog.blog_cat_list', compact('blog', 'breadCat', 'bCategory', 'dPost'));
     }
+    public function BlogList()
+    {
+       $blog = BlogPost::latest()->paginate(4);
+
+
+       $bCategory = BlogCategory::latest()->get();
+       
+       $dPost = BlogPost::latest()->limit(3)->get();
+
+       return view('frontend.blog.blog_list', compact('blog', 'bCategory', 'dPost'));
+    }
 
 }
