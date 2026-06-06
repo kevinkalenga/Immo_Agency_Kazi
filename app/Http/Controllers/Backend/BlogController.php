@@ -12,6 +12,7 @@ use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
@@ -89,7 +90,7 @@ class BlogController extends Controller
     }
     public function AddPost()
     {
-      $blogCat = BlogCategory::latest()->get();
+        $blogCat = BlogCategory::latest()->get();
        return view('backend.post.add_post', compact('blogCat'));
     }
 
@@ -131,6 +132,103 @@ class BlogController extends Controller
 
         return redirect()->route('all.post')->with([
             'message' => 'BlogPost Inserted Successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
+    public function EditPost($id)
+    {
+        $blogCat = BlogCategory::latest()->get(); 
+        $post = BlogPost::findOrFail($id);
+        return view('backend.post.edit_post', compact('post', 'blogCat'));
+
+    }
+
+
+    public function UpdatePost(Request $request, $id)
+    {
+       
+
+        $blogPost = BlogPost::findOrFail($id);
+
+        $image = $request->file('post_image');
+
+        // SI nouvelle image uploadée
+        if ($image) {
+
+            // supprimer ancienne image si elle existe
+            if (File::exists(public_path($blogPost->post_image))) {
+                File::delete(public_path($blogPost->post_image));
+            }
+
+            // Intervention Image v3
+            $manager = new ImageManager(new Driver());
+
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+
+            $image_resized = $manager->read($image)
+                ->resize(370, 250);
+
+            $path = public_path('uploads/post/');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            $image_resized->save($path . $name_gen);
+
+            $save_url = 'uploads/post/' . $name_gen;
+
+            // update avec image
+            $blogPost->update([
+                'blogcat_id' => $request->blogcat_id,
+                'user_id' => Auth::user()->id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'post_image' => $save_url,
+                'short_descp' => $request->short_descp,
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'created_at' => Carbon::now(),
+            ]);
+
+        } else {
+
+            // update sans changer image
+            $blogPost->update([
+                'blogcat_id' => $request->blogcat_id,
+                'user_id' => Auth::user()->id,
+                'post_title' => $request->post_title,
+                'post_slug' => strtolower(str_replace(' ', '-', $request->post_title)),
+                'short_descp' => $request->short_descp,
+                'long_descp' => $request->long_descp,
+                'post_tags' => $request->post_tags,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+        return redirect()->route('all.post')->with([
+            'message' => 'BlogPost Updated Successfully',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
+    public function DeletePost($id)
+    {
+        $blogPost = BlogPost::findOrFail($id);
+
+        // supprimer image du dossier si elle existe
+        if (File::exists(public_path($blogPost->post_image))) {
+            File::delete(public_path($blogPost->post_image));
+        }
+
+        // supprimer en base
+        $blogPost->delete();
+
+        return redirect()->route('all.post')->with([
+            'message' => 'BlogPost Deleted Successfully',
             'alert-type' => 'success'
         ]);
     }

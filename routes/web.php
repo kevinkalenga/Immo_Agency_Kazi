@@ -157,12 +157,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
       
     });
 
-     // Testimonials All Route
+     // BlogPost All Route
     Route::controller(BlogController::class)->group(function(){
          Route::get('/all/post', 'AllPost')->name('all.post');
          Route::get('/add/post', 'AddPost')->name('add.post');
          Route::post('/store/post', 'StorePost')->name('store.post');
-      
+         Route::get('/edit/post/{id}', 'EditPost')->name('edit.post'); 
+         Route::post('/update/post/{id}',  'UpdatePost')->name('update.post');
+         Route::get('/delete/post/{id}',  'DeletePost')->name('delete.post');
        
          
     });
