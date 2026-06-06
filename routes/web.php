@@ -269,6 +269,10 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
   
   // Display all agents
   Route::post('/all/property/search', [IndexController::class, 'AllPropertySearch'])->name('all.property.search');
+  
+  
+  // Blog Details Routes
+  Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
 
 
 
