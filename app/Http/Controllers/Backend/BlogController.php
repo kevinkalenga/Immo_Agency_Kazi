@@ -236,7 +236,14 @@ class BlogController extends Controller
     {
        $blog = BlogPost::where('post_slug', $slug)->first();
 
-       return view('frontend.blog.blog_details', compact('blog'));
+       $tags = $blog->post_tags;
+       $tags_all = explode(',',$tags);
+
+       $bCategory = BlogCategory::latest()->get();
+       
+       $dPost = BlogPost::latest()->limit(3)->get();
+
+       return view('frontend.blog.blog_details', compact('blog', 'tags_all', 'bCategory', 'dPost'));
     }
 
 }
