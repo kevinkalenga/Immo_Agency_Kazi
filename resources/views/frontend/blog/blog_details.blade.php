@@ -118,7 +118,12 @@
                                     <h4>Leave a Comment</h4>
                                 </div>
                                  @auth
-                                    <form action="blog-details.html" method="post" class="comment-form default-form">
+                                    <form action="{{route('store.comment')}}" method="post" class="comment-form default-form">
+
+                                       @csrf
+                                        
+                                       <input type="hidden" name="post_id" value="{{$blog->id}}">
+                                        
                                         <div class="row">
                                             
                                            
@@ -133,12 +138,12 @@
                                             </div>
                                         </div>
                                     </form>
-                                  @else  
+                                @else  
                                      <p>
                                          <b>Login first before leaving a comment <a href="{{route('login')}}">Login Here</a></b>
                                      </p>
 
-                                  @endauth
+                                @endauth
                             </div>
                         </div>
                     </div>

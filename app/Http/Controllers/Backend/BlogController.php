@@ -10,6 +10,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Str;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\File;
@@ -267,6 +268,26 @@ class BlogController extends Controller
        $dPost = BlogPost::latest()->limit(3)->get();
 
        return view('frontend.blog.blog_list', compact('blog', 'bCategory', 'dPost'));
+    }
+
+    public function StoreComment(Request $request) 
+    {
+        $pId = $request->post_id;
+
+        Comment::insert([
+            'user_id' => Auth::user()->id,
+            'post_id' => $pId,
+            'parent_id' => null,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'created_at' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with([
+            'message' => 'Comment Added Successfully',
+            'alert-type' => 'success'
+        ]);
+        
     }
 
 }
