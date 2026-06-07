@@ -276,6 +276,8 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
   Route::get('/blog/cat/list/{id}', [BlogController::class, 'BlogCatList']);
   Route::get('/blog/list', [BlogController::class, 'BlogList'])->name('blog.list');
   Route::post('/store/comment', [BlogController::class, 'StoreComment'])->name('store.comment');
+  
+  Route::get('/admin/blog/comment', [BlogController::class, 'AdminBlogComment'])->name('admin.blog.comment');
 
 
 
