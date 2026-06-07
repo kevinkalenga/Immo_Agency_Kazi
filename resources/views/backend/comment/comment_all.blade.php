@@ -39,7 +39,7 @@
                                                {{ $item->subject }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('edit.state', $item->id) }}" class="btn btn-inverse-warning">Replay</a>
+                                                <a href="{{ route('admin.comment.reply', $item->id) }}" class="btn btn-inverse-warning">Reply</a>
                                                
                                             </td>
                                         </tr>
