@@ -282,5 +282,8 @@ Route::get('/property/type/{id}', [IndexController::class, 'PropertyType'])->nam
   Route::post('/reply/message', [BlogController::class, 'ReplyMessage'])->name('reply.message');
 
 
+//   Schedeule message
+
+ Route::post('/store/schedule', [IndexController::class, 'StoreSchedule'])->name('store.schedule');
 
 

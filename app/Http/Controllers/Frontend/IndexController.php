@@ -11,6 +11,7 @@ use App\Models\Amenities;
 use App\Models\PackagePlan;
 use App\Models\User;
 use App\Models\State; 
+use App\Models\Schedule; 
 use App\Models\MultiImage;
 use App\Models\PropertyMessage;
 use Carbon\Carbon;
@@ -256,6 +257,10 @@ class IndexController extends Controller
             ->paginate(3);
 
         return view('frontend.property.property_search',compact('property'));
+    }
+    public function StoreSchedule(Request $request){
+
+       
     }
 
 
