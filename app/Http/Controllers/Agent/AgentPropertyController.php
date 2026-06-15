@@ -601,5 +601,25 @@ class AgentPropertyController extends Controller
         return view('agent.schedule.schedule_details', compact('schedule'));
     }
 
+
+    public function AgentUpdateSchedule(Request $request){
+
+        $sid = $request->id;
+
+        Schedule::findOrFail($sId)->update([
+            'status' => '1',
+
+        ]);
+
+         $notification = array(
+            'message' => 'You have Confirmed Schedule Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('agent.schedule.request')->with($notification);
+
+
+    }
+
    
 }

@@ -16,9 +16,9 @@
 
       <div class="card p-3">
          <h6 class="card-title">Schedule Request Details</h6>
-        <form method="post" action="{{ route('store.professional.plan') }}">
+        <form method="post" action="{{ route('agent.update.schedule') }}">
           @csrf
-            
+            <input type="hidden" name="id" value="{{$schedule->id}}">
              <div class="table-responsive pt-3">
 									<table class="table table-bordered">
 										
