@@ -200,11 +200,11 @@
                                        @csrf 
                                         <input type="hidden" name="property_id" value="{{$property->id}}">  
                                         @if($property->agent_id == Null) 
-                                        <input type="hidden" name="agent_id" value="{{$property->id}}">  
+                                        <input type="hidden" name="agent_id" value="">  
                                         
                                         @else  
 
-                                        <input type="hidden" name="agent_id" value="">  
+                                        <input type="hidden" name="agent_id" value="{{ $property->agent_id }}">  
                                         @endif
                                     
                                         <div class="row clearfix">

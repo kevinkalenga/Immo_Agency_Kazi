@@ -258,9 +258,41 @@ class IndexController extends Controller
 
         return view('frontend.property.property_search',compact('property'));
     }
-    public function StoreSchedule(Request $request){
+    
+    
+    public function StoreSchedule(Request $request)
+    {
 
-       
+         $aId = $request->agent_id;
+        $pId = $request->property_id;
+        // dd($aId);
+         
+         if (Auth::check()) {
+             Schedule::insert([
+
+                'user_id' => Auth::user()->id,
+                'property_id' => $pId,
+                'agent_id' => $aId,
+                'tour_date' => $request->tour_date,
+                'tour_time' => $request->tour_time,
+                'message' => $request->message,
+                'created_at' => Carbon::now(), 
+            ]);
+
+            $notification = array(
+                    'message' => 'Send Request Successfully',
+                    'alert-type' => 'success'
+            );
+             return redirect()->back()->with($notification);
+         } else {
+            $notification = array(
+                'message' => 'Login first please',
+                'alert-type' => 'error'
+            );
+         }
+    
+          return redirect()->back()->with($notification);
+    
     }
 
 
