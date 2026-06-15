@@ -53,7 +53,7 @@
                      
                         
                         <td>
-                           <a href="{{route('agent.details.propertie', $item->id)}}" class="btn btn-inverse-info" title="Details">
+                           <a href="{{route('agent.details.schedule', $item->id)}}" class="btn btn-inverse-info" title="Details">
                               <i data-feather="eye"></i>
                            </a>
                           <a href="{{route('agent.edit.propertie', $item->id)}}" class="btn btn-inverse-warning" title="Edit">
