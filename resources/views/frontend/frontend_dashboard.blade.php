@@ -309,7 +309,7 @@
     
     
     $(document).ready(function(){
-    //   wishlist();
+       wishlist();
     });
 </script>
 
@@ -495,7 +495,7 @@
     
     
     $(document).ready(function(){
-    //   compare();
+       compare();
     });
 </script>
  <!-- Partage de bien -->

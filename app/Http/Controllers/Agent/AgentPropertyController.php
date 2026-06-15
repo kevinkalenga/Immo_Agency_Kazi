@@ -11,6 +11,7 @@ use App\Models\PropertyType;
 use App\Models\Amenities;
 use App\Models\User;
 use App\Models\State;
+use App\Models\Schedule;
 use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use Carbon\Carbon;
@@ -580,6 +581,15 @@ class AgentPropertyController extends Controller
             'agent.message.message_detail',
             compact('userMsg', 'msgDetails')
         );
+    }
+
+    public function AgentScheduleRequest()
+    {
+        // user who is logged in
+        $id = Auth::user()->id;
+        $userMsg = Schedule::where('agent_id', $id)->get();
+
+        return view('agent.schedule.schedule_request', compact('userMsg'));
     }
 
    
