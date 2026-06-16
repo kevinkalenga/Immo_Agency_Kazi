@@ -22,6 +22,8 @@ use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ScheduleMail;
 
 class AgentPropertyController extends Controller
 {
@@ -604,14 +606,26 @@ class AgentPropertyController extends Controller
 
     public function AgentUpdateSchedule(Request $request){
 
-        $sid = $request->id;
+        $sId = $request->id;
 
         Schedule::findOrFail($sId)->update([
             'status' => '1',
 
         ]);
 
-         $notification = array(
+         
+        $sendmail = Schedule::findOrFail($sId);
+
+       $data = [
+            'tour_date' => $sendmail->tour_date,
+            'tour_time' => $sendmail->tour_time,
+       ];
+
+       Mail::to($request->email)->send(new ScheduleMail($data));
+        
+        
+        
+        $notification = array(
             'message' => 'You have Confirmed Schedule Successfully',
             'alert-type' => 'success'
         );
