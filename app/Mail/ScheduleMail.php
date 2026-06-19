@@ -27,7 +27,7 @@ class ScheduleMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Schedule has been Confirmed',,
+            subject: 'Your Schedule has been Confirmed',
         );
     }
 

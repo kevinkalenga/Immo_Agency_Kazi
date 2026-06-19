@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\SettingController;
 
 use App\Http\Controllers\Agent\AgentPropertyController;
 
@@ -165,6 +166,14 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::get('/edit/post/{id}', 'EditPost')->name('edit.post'); 
          Route::post('/update/post/{id}',  'UpdatePost')->name('update.post');
          Route::get('/delete/post/{id}',  'DeletePost')->name('delete.post');
+       
+         
+    });
+
+    // SMTP Setting
+    Route::controller(SettingController::class)->group(function(){
+         Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
+       
        
          
     });

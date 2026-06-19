@@ -54,11 +54,7 @@
 												<td>{{$schedule->created_at->format('l M d Y')}}</td>
 											
 											</tr>
-											<tr>
-												<td>User Name</td>
-												<td>Cedric Kelly</td>
 											
-											</tr>
 											
 										</tbody>
 									</table>
