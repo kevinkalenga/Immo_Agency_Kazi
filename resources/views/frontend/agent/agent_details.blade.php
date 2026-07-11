@@ -149,7 +149,7 @@
 
                                        @endphp
                                     
-                                        <form action="{{route('agent.details.message')}}" method="post" class="default-form">
+                                        <form action="{{route('agent.details.message')}}" method="post" class="default-form"novalidate>
                                             @csrf
                                             
                                           
@@ -175,7 +175,7 @@
                                         </form>
                                     @else  
 
-                                         <form action="{{route('agent.details.message')}}" method="post" class="default-form">
+                                         <form action="{{route('agent.details.message')}}" method="post" class="default-form"novalidate>
                                             @csrf
                                          
                                              

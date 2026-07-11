@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\Models\User;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
@@ -113,6 +114,15 @@ class UserController extends Controller
     
     
     
+    }
+
+
+    public function UserScheduleRequest()
+    {
+        $id = Auth::user()->id;
+        $userData = User::find($id);
+        $request = Schedule::where('user_id', $id)->get();
+        return view('frontend.message.schedule_request', compact('userData', 'request'));
     }
 
 }
