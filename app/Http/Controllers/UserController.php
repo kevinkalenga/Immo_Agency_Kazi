@@ -121,8 +121,8 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $userData = User::find($id);
-        $request = Schedule::where('user_id', $id)->get();
-        return view('frontend.message.schedule_request', compact('userData', 'request'));
+        $sRequest = Schedule::where('user_id', $id)->get();
+        return view('frontend.message.schedule_request', compact('userData', 'sRequest'));
     }
 
 }
