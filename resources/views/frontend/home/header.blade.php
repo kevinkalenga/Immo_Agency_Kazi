@@ -44,7 +44,7 @@
 <div class="outer-box">
 <div class="main-box">
 <div class="logo-box">
-    <figure class="logo"><a href="{{route('home')}}"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a></figure>
+    <figure class="logo"><a href="{{url('/')}}"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a></figure>
 </div>
 <div class="menu-area clearfix">
     <!--Mobile Navigation Toggler-->
@@ -59,7 +59,7 @@
                 <li><a href="{{route('home')}}"><span>Home</span></a></li>
                 <li><a href="{{route('home')}}"><span>About Us</span></a></li>
               
-                <li class="dropdown"><a href="index.html"><span>Property</span></a>
+                <li class="dropdown"><a href="javascript:;"><span>Property</span></a>
                     <ul>
                         <li><a href="{{route('rent.property')}}">Rent Property</a></li>
                         <li><a href="{{route('buy.property')}}">Buy Property</a></li>

@@ -274,7 +274,7 @@
 
                                        @endphp
                                     
-                                        <form action="{{route('property.message')}}" method="post" class="default-form">
+                                        <form action="{{route('property.message')}}" method="post" class="default-form" novalidate>
                                             @csrf
                                             <input type="hidden" name="property_id" value="{{$property->id}}">
                                             
@@ -302,7 +302,7 @@
                                         </form>
                                     @else  
 
-                                         <form action="{{route('property.message')}}" method="post" class="default-form">
+                                         <form action="{{route('property.message')}}" method="post" class="default-form" novalidate>
                                             @csrf
                                             
                                              <input type="hidden" name="property_id" value="{{$property->id}}">
