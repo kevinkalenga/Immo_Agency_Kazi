@@ -26,7 +26,7 @@
 						<div class="row">
 							
 							<div class="col-lg-8">
-							  <form action="{{route('update.smtp.setting')}}" method="post">
+							  <form action="{{route('update.site.setting')}}" method="post" enctype="multipart/form-data">
 								@csrf
 								<input type="hidden" name="id" value="{{$siteSetting->id}}">
 								<div class="card">
@@ -86,7 +86,7 @@
 									    </div>
                                         <div class="mb-3">
 										   <label for="exampleInputEmail1" class="form-label"></label>
-										   <img id="showImage" src="{{(asset($siteSetting->logo))}}" alt="logo" class="rounded-circle p-1 bg-primary" width="80">
+										   <img id="showImage" src="{{ $siteSetting->logo == 'logo.png' ? asset('uploads/logo/logo.png') : asset($siteSetting->logo) }}" alt="logo" class="rounded-circle p-1 bg-primary" width="80">
 									    </div>
 										
 										
@@ -110,6 +110,7 @@
             <script type="text/javascript">
                $(document).ready(function(){
 				$('#image').change(function(e){
+				     console.log('Image sélectionnée');
 					var reader = new FileReader();
 					reader.onload = function(e){
 						$("#showImage").attr('src', e.target.result)
