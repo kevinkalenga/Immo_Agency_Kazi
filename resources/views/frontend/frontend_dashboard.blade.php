@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>Easy - Real Estate</title>
+<title>@yield('title')</title>
 
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/871e76e3a2.js" crossorigin="anonymous"></script>

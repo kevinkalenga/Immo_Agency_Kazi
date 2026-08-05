@@ -2,7 +2,9 @@
         
 @section('main')
 
-
+    @section('title')
+      {{ $property->property_name }} | RealEstate  
+    @endsection
      <!-- {{ env('GOOGLE_MAPS_API_KEY') }} -->
 
 

@@ -1,7 +1,9 @@
 @extends('frontend.frontend_dashboard')       
 @section('main') 
 
-
+    @section('title')
+        {{ $breadcat->category_name }} | Easy RealEstate  
+    @endsection
 
 
 

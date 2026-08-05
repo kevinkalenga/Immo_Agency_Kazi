@@ -1,7 +1,10 @@
 @extends('frontend.frontend_dashboard')       
 @section('main') 
 
-
+   
+@section('title')
+  Blog | Easy RealEstate  
+@endsection
 
 
 

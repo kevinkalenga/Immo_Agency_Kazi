@@ -1,6 +1,8 @@
 @extends('frontend.frontend_dashboard')       
 @section('main') 
-
+@section('title')
+  {{ $blog->post_title }} | Easy RealEstate  
+@endsection
 
 @php
  $comment = App\Models\Comment::where('post_id',$blog->id)->where('parent_id',null)->limit(5)->get();

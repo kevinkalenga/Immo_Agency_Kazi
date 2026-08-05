@@ -1,7 +1,9 @@
 @extends('frontend.frontend_dashboard')       
         
 @section('main')
-
+              @section('title')
+                Agent Login | Easy RealEstate  
+              @endsection
          <!-- banner-section -->
           @include('frontend.home.banner')
         <!-- banner-section end -->
