@@ -4,7 +4,7 @@
 
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <a href="{{ route('add.amenitie') }}" class="btn btn-inverse-info">
+            <a href="{{ route('add.permission') }}" class="btn btn-inverse-info">
                 Add Permission
             </a>
         </ol>
