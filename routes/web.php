@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\RoleController;
 
 use App\Http\Controllers\Agent\AgentPropertyController;
 
@@ -186,6 +187,13 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
        
        
          
+    });
+
+
+     // Permission All Route
+    Route::controller(RoleController::class)->group(function(){
+         Route::get('/all/permission', 'AllPermission')->name('all.permission');
+     
     });
 
 
