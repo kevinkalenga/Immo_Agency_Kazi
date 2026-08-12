@@ -154,20 +154,42 @@ class IndexController extends Controller
       return view('frontend.property.buy_property', compact('bProperty', 'rProperty'));
 
     }
-    public function PropertyType($id)
-    {
-         $propertyType = Property::where('status', '1')->where('ptype_id', $id)->get();
+    // public function PropertyType($id)
+    // {
+    //      $propertyType = Property::where('status', '1')->where('ptype_id', $id)->get();
 
-        $bProperty = Property::where('status', '1')->where('property_status', 'buy')->get();
+    //     $bProperty = Property::where('status', '1')->where('property_status', 'buy')->get();
 
-        $rProperty = Property::where('status', '1')
-                ->where('property_status', 'rent')
-                ->get();
-        $pBread = PropertyType::where('id', $id)->first();
+    //     $rProperty = Property::where('status', '1')
+    //             ->where('property_status', 'rent')
+    //             ->get();
+    //     $pBread = PropertyType::where('id', $id)->first();
 
          
-         return view('frontend.property.property_type', compact('propertyType', 'bProperty', 'rProperty', 'pBread'));
+    //      return view('frontend.property.property_type', compact('propertyType', 'bProperty', 'rProperty', 'pBread'));
 
+    // }
+
+    public function PropertyType($id)
+    {
+        $propertyType = Property::where('status', '1')
+            ->where('ptype_id', $id)
+            ->get();
+
+        $bProperty = Property::where('status', '1')
+            ->where('property_status', 'buy')
+            ->get();
+
+        $rProperty = Property::where('status', '1')
+            ->where('property_status', 'rent')
+            ->paginate(3);
+
+        $pBread = PropertyType::findOrFail($id);
+
+        return view(
+            'frontend.property.property_type',
+            compact('propertyType', 'bProperty', 'rProperty', 'pBread')
+        );
     }
 
     public function StateDetails($id){
