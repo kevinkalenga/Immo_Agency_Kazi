@@ -9,7 +9,7 @@
     <nav class="page-breadcrumb">
          <ol class="breadcrumb">
            
-            <a href="{{ route('add.permission') }}" class="btn btn-inverse-danger">
+            <a href="{{ route('export') }}" class="btn btn-inverse-danger">
                 Download Xlsx
             </a>
          </ol>
