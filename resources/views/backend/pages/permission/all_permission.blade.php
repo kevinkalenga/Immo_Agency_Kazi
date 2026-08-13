@@ -13,7 +13,7 @@
                 Import
             </a>
              &nbsp; &nbsp;
-            <a href="{{ route('add.permission') }}" class="btn btn-inverse-danger">
+            <a href="{{ route('export') }}" class="btn btn-inverse-danger">
                 Export
             </a>
         </ol>
