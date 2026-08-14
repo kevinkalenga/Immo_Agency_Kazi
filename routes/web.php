@@ -205,6 +205,15 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
          Route::post('/import', 'Import')->name('import'); 
      
     });
+     // Roles All Route
+    Route::controller(RoleController::class)->group(function(){
+          Route::get('/all/roles', 'AllRoles')->name('all.roles');
+          Route::get('/add/roles', 'AddRoles')->name('add.roles');
+          Route::post('/store/roles', 'StoreRoles')->name('store.roles');
+
+       
+     
+    });
 
 
 });

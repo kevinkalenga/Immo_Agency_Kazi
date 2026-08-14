@@ -213,7 +213,7 @@
                   <a href="{{route('add.permission')}}" class="nav-link">Add Permission</a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/advanced-ui/owl-carousel.html" class="nav-link">Owl carousel</a>
+                  <a href="{{route('all.roles')}}" class="nav-link">All Roles</a>
                 </li>
                 
               </ul>
