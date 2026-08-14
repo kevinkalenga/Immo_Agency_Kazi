@@ -59,7 +59,50 @@
                                         for="checkDefault">
                                    Permission All
                                 </label>
-                             </div>
+                            </div>
+
+                            <hr> 
+                            @foreach ($permission_groups as $group) 
+
+                               <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-check">
+                                          <input class="form-check-input"
+                                                 type="checkbox"
+                                                 value=""
+                                                 id="checkDefault">
+
+                                          <label class="form-check-label"
+                                                 for="checkDefault">
+                                              {{ $group->group_name }}
+                                          </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-9">
+
+                                       
+                                          <div class="form-check mb-2">
+                                             <input class="form-check-input"
+                                                   type="checkbox"
+                                                   
+                                                   id="checkDefault">
+
+                                             <label class="form-check-label"
+                                                   for="checkDefault">
+                                                  Permission All
+                                             </label>
+                                          </div>
+                                      
+                                        <br>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            @endforeach  
                            
 
 

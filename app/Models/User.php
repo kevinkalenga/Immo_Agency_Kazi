@@ -7,6 +7,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use DB;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public static function getpermissionGroups(){
+      return DB::table('permissions')
+        ->select('group_name')
+        ->groupBy('group_name')
+        ->get();
+    }    
 }
